@@ -32,19 +32,35 @@ public class Canvas extends JPanel {
         map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
 
         map.add(new Entity(3, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(4, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
+        map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
 
-        // TODO: Door entity
-        Entity door = new Entity(5, 6, new int[] {0,0,255}, new ShapeSquare() {}, 0);
-        door.type = "DOOR";
-        map.add(door);
+        {
+            // TODO: Door entity
+            Entity door = new EntityDoor(5, 6, new int[] {0,100,255}, new ShapeSquare() {}, 0, 1);
+            door.type = "DOOR";
+            map.add(door);
 
-        // TODO: Key entity
-        Entity key = new Entity(8, 8, new int[] {255,255,0}, new ShapeSquare() {}, 0);
-        key.type = "KEY";
-        map.add(key);
+            // TODO: Key entity
+            Entity key = new EntityKey(8, 8, new int[] {0,50,255}, new ShapeSquare() {}, 0, 1);
+            key.type = "KEY";
+            map.add(key);
+        }
 
-        map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeSquare() {}, 0));
+        {
+            // TODO: Door entity
+            Entity door = new EntityDoor(4, 6, new int[] {0,255,100}, new ShapeSquare() {}, 0, 2);
+            door.type = "DOOR";
+            map.add(door);
+
+            // TODO: Key entity
+            Entity key = new EntityKey(0, 8, new int[] {0,255,50}, new ShapeSquare() {}, 0, 2);
+            key.type = "KEY";
+            map.add(key);
+        }
+
+        
+
+        
     }
 
     public void paintComponent(Graphics g) {

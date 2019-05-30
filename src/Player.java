@@ -8,7 +8,7 @@ public class Player {
     public int x = 0, y = 0, direction = 0;
 
     public Shape currentShape = new ShapeSquare();
-    public ArrayList<Integer> keys = new ArrayList<Integer>();
+    public ArrayList<EntityKey> keys = new ArrayList<EntityKey>();
 
     // TODO: get GeneralPath image based on the direction
     public GeneralPath getImage(int currentX, int currentY, int direction) {
@@ -40,16 +40,18 @@ public class Player {
         // }
     }
 
-    public void addKey() {
-        keys.add(100);
+    public void addKey(EntityKey entity) {
+        keys.add(entity);
     }
 
-    public boolean unlock(Entity entity) {
-        if(keys.size() > 0) {
-            keys.remove(0);
-            return entity.type == "DOOR";
+    public boolean unlock(EntityDoor entity) {
+        boolean keyFound = false;
+        for (EntityKey key : keys) {
+            if(key.keyValue == entity.unlockValue) {
+                keyFound = true;
+            }
         }
-        return false;
+        return keyFound;
     }
 
     public void left() {
@@ -61,10 +63,10 @@ public class Player {
         if (y > 0&& !Canvas.isCollision(nextX, nextY)) {
             direction = 1;
             y = nextY;
-        } else if (Canvas.isDoor(nextX, nextY) && unlock(collisioned)) {
+        } else if (Canvas.isDoor(nextX, nextY) && unlock((EntityDoor)collisioned)) {
             Canvas.remove(nextX, nextY);
         } else if (Canvas.isKey(nextX, nextY)) {
-            addKey();
+            addKey((EntityKey)collisioned);
             Canvas.remove(nextX, nextY);
         }
         
@@ -80,10 +82,10 @@ public class Player {
         if(x > 0 && !Canvas.isCollision(nextX, nextY)) {
             direction = 2;
             x = nextX;
-        } else if (Canvas.isDoor(nextX, nextY) && unlock(collisioned)) {
+        } else if (Canvas.isDoor(nextX, nextY) && unlock((EntityDoor)collisioned)) {
             Canvas.remove(nextX, nextY);
         } else if (Canvas.isKey(nextX, nextY)) {
-            addKey();
+            addKey((EntityKey)collisioned);
             Canvas.remove(nextX, nextY);
         }
         
@@ -98,10 +100,10 @@ public class Player {
         if (y < Canvas.HEIGHT && !Canvas.isCollision(nextX, nextY)) {
             direction = 4;
             y = nextY;
-        } else if (Canvas.isDoor(nextX, nextY) && unlock(collisioned)) {
+        } else if (Canvas.isDoor(nextX, nextY) && unlock((EntityDoor)collisioned)) {
             Canvas.remove(nextX, y);
         } else if (Canvas.isKey(nextX, nextY)) {
-            addKey();
+            addKey((EntityKey)collisioned);
             Canvas.remove(nextX, nextY);
         }
         
@@ -117,10 +119,10 @@ public class Player {
         if (x < Canvas.WIDTH && !Canvas.isCollision(nextX, nextY)) {
             direction = 3;
             x = nextX;
-        } else if (Canvas.isDoor(nextX, nextY) && unlock(collisioned)) {
+        } else if (Canvas.isDoor(nextX, nextY) && unlock((EntityDoor)collisioned)) {
             Canvas.remove(nextX, nextY);
         } else if (Canvas.isKey(nextX, nextY)) {
-            addKey();
+            addKey((EntityKey)collisioned);
             Canvas.remove(nextX, nextY);
         }
         
