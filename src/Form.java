@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
  * Form
  */
 public class Form extends JFrame {
+    // Auto generated serial
     private static final long serialVersionUID = 8557974571427438540L;
     private Canvas panel;
 
@@ -31,26 +32,6 @@ public class Form extends JFrame {
                 if (e.getKeyCode() == 40) {
                     down();
                 }
-
-                if (Character.isSpaceChar(e.getKeyChar())) {
-                    space();
-                }
-
-                if (e.getKeyChar() == 'c') {
-                    color();
-                }
-
-                if (e.getKeyChar() == 's') {
-                    shape();
-                }
-
-                if (e.getKeyChar() == 'r') {
-                    rotate();
-                }
-
-                if (e.getKeyChar() == 'q') {
-                    rotate();
-                }
             }
         
             public void keyTyped(KeyEvent e) {}
@@ -71,51 +52,79 @@ public class Form extends JFrame {
         this.setVisible(true);
     }
 
+    // TODO: Move this god class logic to the canvas... dont forget to place the movement in player and collision in canvas
     private void left() {
-        if (Canvas.pen.y > 0) {
-            Canvas.pen.y = Canvas.pen.y - 1;
+        int x = Canvas.player.x; 
+        int y = Canvas.player.y-1;
+        Entity collisioned = Canvas.getEntity(x, y);
+
+        Canvas.player.currentShape = new ShapeTriangle();
+        if (Canvas.player.y > 0&& !Canvas.isCollision(Canvas.player.x, Canvas.player.y-1)) {
+            Canvas.player.rotation = 1;
+            Canvas.player.y = Canvas.player.y - 1;
+        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
+            Canvas.remove(x, y);
+        } else if (Canvas.isKey(x, y)) {
+            Canvas.player.addKey();
+            Canvas.remove(x, y);
         }
         refresh();
     }
 
     private void up() {
-        if(Canvas.pen.x > 0) {
-            Canvas.pen.x = Canvas.pen.x - 1;
+        int x = Canvas.player.x-1; 
+        int y = Canvas.player.y;
+        Entity collisioned = Canvas.getEntity(x, y);
+
+        Canvas.player.currentShape = new ShapeTriangle();
+
+        if(Canvas.player.x > 0 && !Canvas.isCollision(x, y)) {
+            Canvas.player.rotation = 2;
+            Canvas.player.x = x;
+        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
+            Canvas.remove(x, y);
+        } else if (Canvas.isKey(x, y)) {
+            Canvas.player.addKey();
+            Canvas.remove(x, y);
         }
         refresh();
     }
 
     private void right() {
-        if (Canvas.pen.y < 8) {
-            Canvas.pen.y = Canvas.pen.y + 1;
+        int x = Canvas.player.x; 
+        int y = Canvas.player.y+1;
+        Entity collisioned = Canvas.getEntity(x, y);
+
+        Canvas.player.currentShape = new ShapeTriangle();
+        if (Canvas.player.y < 8 && !Canvas.isCollision(x, y)) {
+            Canvas.player.rotation = 4;
+            Canvas.player.y = y;
+        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
+            Canvas.remove(x, y);
+        } else if (Canvas.isKey(x, y)) {
+            Canvas.player.addKey();
+            Canvas.remove(x, y);
         }
         refresh();
     }
 
     private void down() {
-        if (Canvas.pen.x < 8) {
-            Canvas.pen.x = Canvas.pen.x + 1;
+        Canvas.player.currentShape = new ShapeTriangle();
+
+        int x = Canvas.player.x+1; 
+        int y = Canvas.player.y;
+        Entity collisioned = Canvas.getEntity(x, y);
+
+        if (Canvas.player.x < 8 && !Canvas.isCollision(x, y)) {
+            Canvas.player.rotation = 3;
+            Canvas.player.x = x;
+        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
+            Canvas.remove(x, y);
+        } else if (Canvas.isKey(x, y)) {
+            Canvas.player.addKey();
+            Canvas.remove(x, y);
         }
-        refresh();
-    }
-    
-    private void space() {
-        Canvas.pen.setTrace();
-        refresh();
-    }
-
-    private void color() {
-        Canvas.pen.switchColor();
-        refresh();
-    }
-
-    private void shape() {
-        Canvas.pen.switchShape();
-        refresh();
-    }
-
-    private void rotate() {
-        Canvas.pen.rotation = Canvas.pen.rotation + 1;
+        
         refresh();
     }
 

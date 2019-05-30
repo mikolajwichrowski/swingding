@@ -3,28 +3,41 @@ import java.util.ArrayList;
 /**
  * Pen
  */
-public class Pen {
+public class Player {
     public int x = 0, y = 0, rotation = 0;
-    private ArrayList<ColorDrop> traces = new ArrayList<ColorDrop>();
+    private ArrayList<Entity> traces = new ArrayList<Entity>();
     private int[] currentColor = new int[] { 255, 0, 0 };
     public Shape currentShape = new ShapeSquare();
+    public ArrayList<Integer> keys = new ArrayList<Integer>();
+
+    public boolean unlock(Entity entity) {
+        if(keys.size() > 0) {
+            keys.remove(0);
+            return entity.type == "DOOR";
+        }
+        return false;
+    }
+
+    public void addKey() {
+        keys.add(100);
+    }
 
     public void setTrace() {
         boolean removed = false;
-        for (ColorDrop p : traces) {
+        for (Entity p : traces) {
             if(p.x == x && p.y == y) {
                 if (p.rgb[0] == currentColor[0] && p.rgb[1] == currentColor[1] && p.rgb[2] == currentColor[2]) {
                     traces.remove(traces.indexOf(p));
                 } else {
                     traces.remove(traces.indexOf(p));
-                    traces.add(new ColorDrop(x, y, currentColor, currentShape, rotation));
+                    traces.add(new Entity(x, y, currentColor, currentShape, rotation));
                 }
                 removed = true;
             }
         }
 
         if(!removed) {
-            traces.add(new ColorDrop(x, y, currentColor, currentShape, rotation));
+            traces.add(new Entity(x, y, currentColor, currentShape, rotation));
         }
     }
 
@@ -50,7 +63,7 @@ public class Pen {
         }
     }
 
-    public ArrayList<ColorDrop> getTraces() {
+    public ArrayList<Entity> getTraces() {
         return traces;
     }
 
