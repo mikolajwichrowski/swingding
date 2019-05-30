@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Canvas extends JPanel {
     // Auto generated serial
     private static final long serialVersionUID = 8999265021216122578L;
-    public static int WIDTH = 9;
-    public static int HEIGHT = 9;
+    public static int WIDTH = 12;
+    public static int HEIGHT = 10;
     public static ArrayList<Entity> map = new ArrayList<Entity>();
 
     public Player player = new Player();
@@ -57,10 +57,6 @@ public class Canvas extends JPanel {
             key.type = "KEY";
             map.add(key);
         }
-
-        
-
-        
     }
 
     public void paintComponent(Graphics g) {

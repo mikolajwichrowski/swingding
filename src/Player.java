@@ -97,7 +97,7 @@ public class Player {
         Entity collisioned = Canvas.getEntity(nextX, nextY);
 
         currentShape = new ShapeTriangle();
-        if (y < Canvas.HEIGHT && !Canvas.isCollision(nextX, nextY)) {
+        if (y < Canvas.WIDTH && !Canvas.isCollision(nextX, nextY)) {
             direction = 4;
             y = nextY;
         } else if (Canvas.isDoor(nextX, nextY) && unlock((EntityDoor)collisioned)) {
@@ -116,7 +116,7 @@ public class Player {
         int nextY = y;
         Entity collisioned = Canvas.getEntity(nextX, nextY);
 
-        if (x < Canvas.WIDTH && !Canvas.isCollision(nextX, nextY)) {
+        if (x < Canvas.HEIGHT && !Canvas.isCollision(nextX, nextY)) {
             direction = 3;
             x = nextX;
         } else if (Canvas.isDoor(nextX, nextY) && unlock((EntityDoor)collisioned)) {

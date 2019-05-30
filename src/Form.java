@@ -1,4 +1,6 @@
 import javax.swing.*;
+
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -16,11 +18,11 @@ public class Form extends JFrame {
 
     Form() {
         // Panel
-        panel = new Canvas();
-        JButton saveButton = new JButton("Save");
-        JButton restartButton = new JButton("Restart");
-        JButton optionsButton = new JButton("Options");
-        JButton quitButton = new JButton("Quit");
+        this.panel = new Canvas();
+        JButton saveButton = new JButton("SAVE");
+        JButton restartButton = new JButton("RESTART");
+        JButton optionsButton = new JButton("OPTIONS");
+        JButton quitButton = new JButton("QUIT");
         
         // Keylistener
         KeyListener myKeyListener = new KeyListener() {
@@ -53,13 +55,13 @@ public class Form extends JFrame {
         // X and Y pointers for painting.
         int offsetX = 30;
         int offsetY = 30;
-        int buttonWidth = 100;
-        int buttonHeight = 30;
         int resolutionX = offsetX+((Canvas.WIDTH+1)*50)+(offsetX*2);
         int resolutionY = offsetY+(30+((Canvas.HEIGHT+1)*50))+(offsetY*3);
+        int buttonWidth = (resolutionX/4) - offsetX; // relative width
+        int buttonHeight = 30; // absolute height
         int paneWidth = (Canvas.WIDTH+1)*50+offsetX;
         int paneHeight = (Canvas.HEIGHT+1)*50+offsetY;
-        int buttonX = offsetX;
+        int buttonX = 20; // Fix for the weird offset
         int buttonY = paneHeight+offsetY;
 
         //Manual Layout positioning of elements
@@ -76,9 +78,14 @@ public class Form extends JFrame {
 
         // Add lambda expressions for buttons
         saveButton.addActionListener(e -> {/**TODO: Add logic for save.*/});
-        restartButton.addActionListener(e -> {/**TODO: Add logic for restart.*/});
+        restartButton.addActionListener(e -> {
+            new Form();
+            dispose();
+        });
         optionsButton.addActionListener(e -> {/**TODO: Add logic for options window.*/});
-        quitButton.addActionListener(e -> {/**TODO: Add logic for quitting to menu.*/});
+        quitButton.addActionListener(e -> {
+            dispose();
+        });
 
         // Show
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +95,8 @@ public class Form extends JFrame {
         this.add(restartButton);
         this.add(optionsButton);
         this.add(quitButton);
-        this.setSize(resolutionX, resolutionY);
+        this.setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
+        this.setResizable(false);
         this.setVisible(true);
     }
 
