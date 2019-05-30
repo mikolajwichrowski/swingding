@@ -51,7 +51,7 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         this.setBackground(new java.awt.Color(255, 255, 255));
 
-        drawPoints(g, map);
+        drawEntities(g, map);
     }
 
     private void drawPlayer(Graphics g, Player p) { 
@@ -65,12 +65,13 @@ public class Canvas extends JPanel {
         body.drawRect(calculatedX, calculatedY, 50, 50);
     }
 
-    private void drawPoints(Graphics g, ArrayList<Entity> entities) { 
+    private void drawEntities(Graphics g, ArrayList<Entity> entities) { 
         for (Entity entity : entities) {
             int calculatedX = 15+(50*entity.y);
             int calculatedY = 15+(50*entity.x);
 
             Graphics2D body = (Graphics2D)g;
+            // Color from the entity sounds good but the path is something every entity has to have different.. direction is just optional
             body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
             body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.direction));
         }
@@ -110,6 +111,7 @@ public class Canvas extends JPanel {
     }
 
     public static Entity getEntity(int x, int y) {
+        // Maybe we need to use void entity to know that the entity is empty or invalid
         Entity requested = new Entity(-1, -1, new int[] {255,255,255}, new ShapeSquare(), 0);
         for (Entity entity : map) {
             if(entity.x == x && entity.y == y) {
@@ -126,7 +128,6 @@ public class Canvas extends JPanel {
                 index = map.indexOf(entity);
             }
         }
-        System.out.println("Removing " + index);
         map.remove(index);
     }
 
