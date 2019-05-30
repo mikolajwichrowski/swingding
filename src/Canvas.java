@@ -15,8 +15,7 @@ public class Canvas extends JPanel {
     public Player player = new Player();
 
     Canvas() {
-        // TODO: instead of entity we should use the subclass...
-        // TODO: shapes zijn hier onnodig.. misschien kunnen we dit kwijt in de subklasse
+        // TODO: instead of entity we should use the subclass... Kan gedaan worden via files en een for-loop of switch statement.
         // This is the "map"
         map.add(new Entity(3, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
         map.add(new Entity(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
