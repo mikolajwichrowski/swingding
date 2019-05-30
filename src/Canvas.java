@@ -8,10 +8,14 @@ import java.util.ArrayList;
 public class Canvas extends JPanel {
     // Auto generated serial
     private static final long serialVersionUID = 8999265021216122578L;
-    public static Player player = new Player();
+    public static int WIDTH = 9;
+    public static int HEIGHT = 9;
     public static ArrayList<Entity> map = new ArrayList<Entity>();
 
+    public Player player = new Player();
+
     Canvas() {
+        // TODO: instead of entity we should use the subclass...
         // This is the "map"
         map.add(new Entity(3, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
         map.add(new Entity(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
@@ -55,8 +59,8 @@ public class Canvas extends JPanel {
         int calculatedY = 15+(50*p.x);
 
         Graphics2D body = (Graphics2D)g;
-        body.setColor(new Color(p.getCurrentColor()[0], p.getCurrentColor()[1], p.getCurrentColor()[2]));
-        body.fill(player.currentShape.getPath(calculatedX, calculatedY, p.rotation));
+        body.setColor(new Color(255, 0, 0));
+        body.fill(player.currentShape.getPath(calculatedX, calculatedY, 1));
         body.setColor(new Color(0, 0, 0));
         body.drawRect(calculatedX, calculatedY, 50, 50);
     }
@@ -68,7 +72,7 @@ public class Canvas extends JPanel {
 
             Graphics2D body = (Graphics2D)g;
             body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
-            body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.rotation));
+            body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.direction));
         }
 
         drawPlayer(g, player);
@@ -125,5 +129,7 @@ public class Canvas extends JPanel {
         System.out.println("Removing " + index);
         map.remove(index);
     }
+
+    
 }
   

@@ -18,19 +18,23 @@ public class Form extends JFrame {
         KeyListener myKeyListener = new KeyListener() {
             public void keyPressed(KeyEvent e) { 
                 if (e.getKeyCode() == 37) {
-                    left();
+                    panel.player.left();
+                    refresh();
                 }
 
                 if (e.getKeyCode() == 38) {
-                    up();
+                    panel.player.up();
+                    refresh();
                 }
 
                 if (e.getKeyCode() == 39) {
-                    right();
+                    panel.player.right();
+                    refresh();
                 }
 
                 if (e.getKeyCode() == 40) {
-                    down();
+                    panel.player.down();
+                    refresh();
                 }
             }
         
@@ -46,89 +50,13 @@ public class Form extends JFrame {
         // Show
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add(panel);
-        int resolutionX = 30+(9*50);
-        int resolutionY = 20+resolutionX;
+        int resolutionX = 30+((Canvas.WIDTH+1)*50);
+        int resolutionY = 20+(30+((Canvas.HEIGHT+1)*50));
         this.setSize(resolutionX, resolutionY);
         this.setVisible(true);
     }
 
-    // TODO: Move this god class logic to the canvas... dont forget to place the movement in player and collision in canvas
-    private void left() {
-        int x = Canvas.player.x; 
-        int y = Canvas.player.y-1;
-        Entity collisioned = Canvas.getEntity(x, y);
-
-        Canvas.player.currentShape = new ShapeTriangle();
-        if (Canvas.player.y > 0&& !Canvas.isCollision(Canvas.player.x, Canvas.player.y-1)) {
-            Canvas.player.rotation = 1;
-            Canvas.player.y = Canvas.player.y - 1;
-        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
-            Canvas.remove(x, y);
-        } else if (Canvas.isKey(x, y)) {
-            Canvas.player.addKey();
-            Canvas.remove(x, y);
-        }
-        refresh();
-    }
-
-    private void up() {
-        int x = Canvas.player.x-1; 
-        int y = Canvas.player.y;
-        Entity collisioned = Canvas.getEntity(x, y);
-
-        Canvas.player.currentShape = new ShapeTriangle();
-
-        if(Canvas.player.x > 0 && !Canvas.isCollision(x, y)) {
-            Canvas.player.rotation = 2;
-            Canvas.player.x = x;
-        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
-            Canvas.remove(x, y);
-        } else if (Canvas.isKey(x, y)) {
-            Canvas.player.addKey();
-            Canvas.remove(x, y);
-        }
-        refresh();
-    }
-
-    private void right() {
-        int x = Canvas.player.x; 
-        int y = Canvas.player.y+1;
-        Entity collisioned = Canvas.getEntity(x, y);
-
-        Canvas.player.currentShape = new ShapeTriangle();
-        if (Canvas.player.y < 8 && !Canvas.isCollision(x, y)) {
-            Canvas.player.rotation = 4;
-            Canvas.player.y = y;
-        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
-            Canvas.remove(x, y);
-        } else if (Canvas.isKey(x, y)) {
-            Canvas.player.addKey();
-            Canvas.remove(x, y);
-        }
-        refresh();
-    }
-
-    private void down() {
-        Canvas.player.currentShape = new ShapeTriangle();
-
-        int x = Canvas.player.x+1; 
-        int y = Canvas.player.y;
-        Entity collisioned = Canvas.getEntity(x, y);
-
-        if (Canvas.player.x < 8 && !Canvas.isCollision(x, y)) {
-            Canvas.player.rotation = 3;
-            Canvas.player.x = x;
-        } else if (Canvas.isDoor(x, y) && Canvas.player.unlock(collisioned)) {
-            Canvas.remove(x, y);
-        } else if (Canvas.isKey(x, y)) {
-            Canvas.player.addKey();
-            Canvas.remove(x, y);
-        }
-        
-        refresh();
-    }
-
-    private void refresh() {
+    public void refresh() {
         panel.repaint();
     }
 }
