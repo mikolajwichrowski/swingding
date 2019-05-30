@@ -17,10 +17,10 @@ public class Canvas extends JPanel {
     Canvas() {
         // TODO: instead of entity we should use the subclass... Kan gedaan worden via files en een for-loop of switch statement.
         // This is the "map"
-        map.add(new Entity(3, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
+        map.add(new Entity(3, 3, new int[] {0,255,0}, new ShapeTriangle(), 2));
         map.add(new Entity(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
         map.add(new Entity(5, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
+        map.add(new Entity(6, 3, new int[] {0,255,0}, new ShapeTriangle(), 3));
 
         map.add(new Entity(3, 4, new int[] {0,255,0}, new ShapeSquare(), 0));
         map.add(new Entity(6, 4, new int[] {0,255,0}, new ShapeSquare(), 0));
@@ -28,33 +28,22 @@ public class Canvas extends JPanel {
         map.add(new Entity(3, 5, new int[] {0,255,0}, new ShapeSquare(), 0));
         map.add(new Entity(6, 5, new int[] {0,255,0}, new ShapeSquare(), 0));
 
-        map.add(new Entity(3, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
-
-        map.add(new Entity(3, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeSquare(), 0));
+        map.add(new Entity(3, 6, new int[] {0,255,0}, new ShapeTriangle(), 1));
+        map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeTriangle(), 0));
 
         {
-            // TODO: Door entity
-            Entity door = new EntityDoor(5, 6, new int[] {0,100,255}, new ShapeSquare() {}, 0, 1);
-            door.type = "DOOR";
+            Entity door = new EntityDoor(5, 6, new int[] {0,100,255}, null, 0, 1);
             map.add(door);
 
-            // TODO: Key entity
-            Entity key = new EntityKey(8, 8, new int[] {0,50,255}, new ShapeSquare() {}, 0, 1);
-            key.type = "KEY";
+            Entity key = new EntityKey(8, 8, new int[] {0,50,255}, null, 0, 1);
             map.add(key);
         }
 
         {
-            // TODO: Door entity
-            Entity door = new EntityDoor(4, 6, new int[] {0,255,100}, new ShapeSquare() {}, 0, 2);
-            door.type = "DOOR";
+            Entity door = new EntityDoor(4, 6, new int[] {0,255,100}, null, 0, 2);
             map.add(door);
 
-            // TODO: Key entity
-            Entity key = new EntityKey(0, 8, new int[] {0,255,50}, new ShapeSquare() {}, 0, 2);
-            key.type = "KEY";
+            Entity key = new EntityKey(0, 8, new int[] {0,255,50}, null, 0, 2);
             map.add(key);
         }
     }
@@ -71,10 +60,14 @@ public class Canvas extends JPanel {
         int calculatedY = 15+(50*p.x);
 
         Graphics2D body = (Graphics2D)g;
-        body.setColor(new Color(255, 0, 0));
-        body.fill(player.currentShape.getPath(calculatedX, calculatedY, 1));
-        body.setColor(new Color(0, 0, 0));
-        body.drawRect(calculatedX, calculatedY, 50, 50);
+        try {
+            body.drawImage(player.getImage(0), calculatedX, calculatedY, 50, 50, null);
+        } catch (Exception e) {
+            body.setColor(new Color(255, 255, 255));
+            body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, 1));
+            body.setColor(new Color(0, 0, 0));
+            body.drawRect(calculatedX, calculatedY, 50, 50);
+        }
     }
 
     private void drawEntities(Graphics g, ArrayList<Entity> entities) { 
@@ -84,8 +77,24 @@ public class Canvas extends JPanel {
 
             Graphics2D body = (Graphics2D)g;
             // Color from the entity sounds good but the path is something every entity has to have different.. direction is just optional
-            body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
-            body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.direction));
+            if(entity instanceof EntityDoor){
+                try {
+                    body.drawImage(((EntityDoor)entity).getImage(), calculatedX, calculatedY, 50, 50, null);
+                } catch (Exception e) {
+                    body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
+                    body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, entity.direction));
+                }
+            } else if(entity instanceof EntityKey) {
+                try {
+                    body.drawImage(((EntityKey)entity).getImage(), calculatedX, calculatedY, 50, 50, null);
+                } catch (Exception e) {
+                    body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
+                    body.fill(new ShapeTriangle().getPath(calculatedX, calculatedY, entity.direction));
+                }
+            } else {
+                body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
+                body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.direction));
+            }
         }
 
         drawPlayer(g, player);
@@ -105,7 +114,7 @@ public class Canvas extends JPanel {
     public static boolean isDoor(int x, int y) {
         boolean r = false;
         for (Entity entity : map) {
-            if(entity.x == x && entity.y == y && entity.type == "DOOR") {
+            if(entity.x == x && entity.y == y && entity instanceof EntityDoor) {
                 r = true;
             }
         }
@@ -115,7 +124,7 @@ public class Canvas extends JPanel {
     public static boolean isKey(int x, int y) {
         boolean r = false;
         for (Entity entity : map) {
-            if(entity.x == x && entity.y == y && entity.type == "KEY") {
+            if(entity.x == x && entity.y == y && entity instanceof EntityKey) {
                 r = true;
             }
         }

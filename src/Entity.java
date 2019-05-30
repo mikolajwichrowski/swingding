@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 /**
  * Position
  */
@@ -5,7 +7,6 @@ public class Entity {
     public int x, y, direction;
     public int[] rgb;
     public Shape shape;
-    public String type = "BLOCK"; // default
 
     Entity(int x, int y, int[] rgb, Shape shape, int direction) {
         this.x = x;

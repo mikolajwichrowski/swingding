@@ -96,6 +96,7 @@ public class Form extends JFrame {
         this.add(optionsButton);
         this.add(quitButton);
         this.setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
+        this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
     }

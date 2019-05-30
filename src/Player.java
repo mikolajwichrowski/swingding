@@ -1,5 +1,10 @@
 import java.awt.geom.GeneralPath;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 /**
  * Pen
@@ -11,20 +16,24 @@ public class Player {
     public ArrayList<EntityKey> keys = new ArrayList<EntityKey>();
 
     // TODO: get GeneralPath image based on the direction
-    public GeneralPath getImage(int currentX, int currentY, int direction) {
-        GeneralPath shape = new GeneralPath();
+    public BufferedImage getImage(int direction) throws Exception {
+        BufferedImage image = ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "/images/zygmund.png"));
+
         switch(direction) {
             case 1:
-                return shape;
+                return image;
             case 2:
-                return shape;
+                return image;
             case 3:
-                return shape;
+                return image;
             case 4:
-                return shape;
+                return image;
             default:
-                return shape;
+                return image;
         }
+        
+        
+        
 
         // I used this in the old version
         // shape.moveTo(xPoints[0] + currentX, yPoints[0] + currentY);
