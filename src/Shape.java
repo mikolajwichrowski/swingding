@@ -23,15 +23,9 @@ public class Shape {
         }
         shape.closePath();
 
-<<<<<<< HEAD
         if(rotation != 0) {
             AffineTransform at = new AffineTransform();
             at.rotate((-Math.PI/2)*rotation, currentX+25, currentY+25);
-=======
-        if (rotation != 0) {
-            AffineTransform at = new AffineTransform();
-            at.rotate((-Math.PI / 2) * rotation, currentX + 25, currentY + 25);
->>>>>>> d6a450ed0aebcbad41931d08368a97518c975b36
             shape.transform(at);
         }
         return shape;
