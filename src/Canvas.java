@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-
 /**
  * Canvas
  */
@@ -54,7 +53,7 @@ public class Canvas extends JPanel {
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.setBackground(new java.awt.Color(255, 255, 255));
+        this.setBackground(new Color(255, 255, 255));
 
         drawEntities(g, map);
     }

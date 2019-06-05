@@ -9,6 +9,6 @@
             "name": "Debug",
             "request": "launch",
             "mainClass": "Program"
-        },
+        }
     ]
 }
