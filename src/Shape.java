@@ -9,11 +9,23 @@ public class Shape {
     public int[] yPoints;
     public int shapeIndex;
 
+    /**
+     * 
+     * @param xPoints
+     * @param yPoints
+     */
     public Shape(int[] xPoints, int[] yPoints) {
         this.xPoints = xPoints;
         this.yPoints = yPoints;
     }
 
+    /**
+     * 
+     * @param currentX
+     * @param currentY
+     * @param rotation
+     * @return
+     */
     public GeneralPath getPath(int currentX, int currentY, int rotation) {
         GeneralPath shape = new GeneralPath();
 

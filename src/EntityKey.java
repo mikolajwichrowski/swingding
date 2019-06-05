@@ -9,12 +9,23 @@ import javax.imageio.ImageIO;
 public class EntityKey extends Entity implements Image {
     public int keyValue;
 
-    EntityKey(int x, int y, int[] rgb, Shape shape, int direction, int keyValue) {
+    /**
+     * 
+     * @param x
+     * @param y
+     * @param rgb
+     * @param shape
+     * @param direction
+     * @param keyValue
+     */
+    public EntityKey(int x, int y, int[] rgb, Shape shape, int direction, int keyValue) {
         super(x, y, rgb, shape, direction);
         this.keyValue = keyValue;
     }
 
-    @Override
+    /**
+     * 
+     */
     public BufferedImage getImage() throws Exception {
         return ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "/images/key_" + keyValue + ".png"));
     }

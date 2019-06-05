@@ -1,6 +1,4 @@
 import javax.swing.*;
-
-import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -16,7 +14,10 @@ public class Form extends JFrame {
     private static final long serialVersionUID = 8557974571427438540L;
     private Canvas panel;
 
-    Form() {
+    /**
+     * 
+     */
+    public Form() {
         // Panel
         this.panel = new Canvas();
         JButton saveButton = new JButton("SAVE");
@@ -87,7 +88,7 @@ public class Form extends JFrame {
             dispose();
         });
 
-        // Show
+        // Show form with controlls
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.getContentPane().add(panel);
@@ -101,6 +102,10 @@ public class Form extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * 
+     * Repaint the canvas
+     */
     public void refresh() {
         panel.repaint();
     }

@@ -6,16 +6,16 @@ import java.util.ArrayList;
  * Canvas
  */
 public class Canvas extends JPanel {
-    // Auto generated serial
-    private static final long serialVersionUID = 8999265021216122578L;
+    private static final long serialVersionUID = 1L; // Auto generated serial
     public static int WIDTH = 12;
     public static int HEIGHT = 10;
     public static ArrayList<Entity> map = new ArrayList<Entity>();
-
     public Player player = new Player();
 
-    Canvas() {
-        // TODO: instead of entity we should use the subclass... Kan gedaan worden via files en een for-loop of switch statement.
+    /**
+     * 
+     */
+    public Canvas() {
         // This is the "map"
         map.add(new Entity(3, 3, new int[] {0,255,0}, new ShapeTriangle(), 2));
         map.add(new Entity(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
@@ -48,6 +48,10 @@ public class Canvas extends JPanel {
         }
     }
 
+    /**
+     * 
+     * @param g
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.setBackground(new java.awt.Color(255, 255, 255));
@@ -55,6 +59,11 @@ public class Canvas extends JPanel {
         drawEntities(g, map);
     }
 
+    /**
+     * 
+     * @param g
+     * @param p
+     */
     private void drawPlayer(Graphics g, Player p) { 
         int calculatedX = 15+(50*p.y);
         int calculatedY = 15+(50*p.x);
@@ -70,6 +79,11 @@ public class Canvas extends JPanel {
         }
     }
 
+    /**
+     * 
+     * @param g
+     * @param entities
+     */
     private void drawEntities(Graphics g, ArrayList<Entity> entities) { 
         for (Entity entity : entities) {
             int calculatedX = 15+(50*entity.y);
@@ -100,40 +114,15 @@ public class Canvas extends JPanel {
         drawPlayer(g, player);
     }
 
-    // TODO make this simple and not so redundant 
-    public static boolean isCollision(int x, int y) {
-        boolean r = false;
-        for (Entity entity : map) {
-            if(entity.x == x && entity.y == y) {
-                r = true;
-            }
-        }
-        return r;
-    }
-
-    public static boolean isDoor(int x, int y) {
-        boolean r = false;
-        for (Entity entity : map) {
-            if(entity.x == x && entity.y == y && entity instanceof EntityDoor) {
-                r = true;
-            }
-        }
-        return r;
-    }
-
-    public static boolean isKey(int x, int y) {
-        boolean r = false;
-        for (Entity entity : map) {
-            if(entity.x == x && entity.y == y && entity instanceof EntityKey) {
-                r = true;
-            }
-        }
-        return r;
-    }
-
+    /**
+     * 
+     * @param x
+     * @param y
+     * @return
+     */
     public static Entity getEntity(int x, int y) {
         // Maybe we need to use void entity to know that the entity is empty or invalid
-        Entity requested = new Entity(-1, -1, new int[] {255,255,255}, new ShapeSquare(), 0);
+        Entity requested = null;
         for (Entity entity : map) {
             if(entity.x == x && entity.y == y) {
                 requested = entity;
@@ -142,7 +131,12 @@ public class Canvas extends JPanel {
         return requested;
     }
 
-    public static void remove(int x, int y) {
+    /**
+     * 
+     * @param x
+     * @param y
+     */
+    public static void removeEntity(int x, int y) {
         int index = -1;
         for (Entity entity : map) {
             if(entity.x == x && entity.y == y) {
@@ -151,7 +145,5 @@ public class Canvas extends JPanel {
         }
         map.remove(index);
     }
-
-    
 }
   

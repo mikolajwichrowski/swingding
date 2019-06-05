@@ -1,5 +1,4 @@
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.Dimension;
@@ -13,6 +12,11 @@ import javax.imageio.ImageIO;
  * Program
  */
 public class Program {
+	
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		// TODO: move this shit to appropiate locations
