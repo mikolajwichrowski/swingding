@@ -1,3 +1,5 @@
+package main.java.org.swingding;
+
 import java.awt.image.BufferedImage;
 
 /**

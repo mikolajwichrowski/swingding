@@ -1,3 +1,5 @@
+package main.java.org.swingding;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 

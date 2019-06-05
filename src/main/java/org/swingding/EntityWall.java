@@ -1,3 +1,5 @@
+package main.java.org.swingding;
+
 /**
  * EntityWall
  */

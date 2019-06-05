@@ -1,16 +1,14 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
+package main.java.org.swingding;
+
 import java.awt.Panel;
-import org.junit.jupiter.api.Test;
 
-
-public class FormTest {
-
+public class Form {
     /**
      * Level boundry unit test
      * This unit test will make sure that the player cant walk off the map
      */
     @Test
-    public void levelBoundry() {
+    public static void levelBoundry() {
         Form form = new Form();
         form.setAccesible(true); // acces private stuff
 

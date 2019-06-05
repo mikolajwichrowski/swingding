@@ -8,7 +8,8 @@
             "type": "java",
             "name": "Debug",
             "request": "launch",
-            "mainClass": "Program"
+            "mainClass": "main.java.org.swingding.Program",
+            "projectName": "swingding_c7020120"
         }
     ]
 }

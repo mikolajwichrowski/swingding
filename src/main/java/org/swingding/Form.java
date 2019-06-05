@@ -1,3 +1,5 @@
+package main.java.org.swingding;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -49,8 +51,12 @@ public class Form extends JFrame {
                 }
             }
         
-            public void keyTyped(KeyEvent e) {}
-            public void keyReleased(KeyEvent e) {}
+            public void keyTyped(KeyEvent e) {
+                return; // uninplemented
+            }
+            public void keyReleased(KeyEvent e) {
+                return; // uninplemented
+            }
         };
 
         // X and Y pointers for painting.
