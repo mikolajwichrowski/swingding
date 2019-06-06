@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
- * Pen
+ * Player
  */
 public class Player {
     public int x = 0, y = 0, direction = 0;
