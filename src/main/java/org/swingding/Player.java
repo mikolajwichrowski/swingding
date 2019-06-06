@@ -156,7 +156,7 @@ public class Player {
      * 
      * @param collisioned
      */
-    private void doCollision(Entity collisioned) {
+    protected void doCollision(Entity collisioned) {
         if (collisioned instanceof EntityDoor && unlock((EntityDoor)collisioned)) {
             Canvas.removeEntity(collisioned.x, collisioned.y);
         } else if (collisioned instanceof EntityKey) {
