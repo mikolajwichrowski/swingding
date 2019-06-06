@@ -14,7 +14,7 @@ import java.awt.event.KeyListener;
 public class Form extends JFrame {
     // Auto generated serial
     private static final long serialVersionUID = 8557974571427438540L;
-    private Canvas panel;
+    public Canvas panel;
 
     /**
      * 

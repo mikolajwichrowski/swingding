@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
  * Program
  */
 public class Program {
-	
 	/**
 	 * 
 	 * @param args
