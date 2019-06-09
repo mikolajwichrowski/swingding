@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 public class Canvas extends JPanel {
     private static final long serialVersionUID = 1L; // Auto generated serial
-    public static int WIDTH = 12;
+    public static int WIDTH = 10;
     public static int HEIGHT = 10;
     public static ArrayList<Entity> map = new ArrayList<Entity>();
     public Player player = new Player();
@@ -18,19 +18,19 @@ public class Canvas extends JPanel {
      */
     public Canvas() {
         // This is the "map"
-        map.add(new Entity(3, 3, new int[] {0,255,0}, new ShapeTriangle(), 2));
-        map.add(new Entity(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(5, 3, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 3, new int[] {0,255,0}, new ShapeTriangle(), 3));
+        map.add(new Entity(3, 3, new int[] {60,60,64}, new ShapeTriangle(), 2));
+        map.add(new Entity(4, 3, new int[] {60,60,64}, new ShapeSquare(), 0));
+        map.add(new Entity(5, 3, new int[] {60,60,64}, new ShapeSquare(), 0));
+        map.add(new Entity(6, 3, new int[] {60,60,64}, new ShapeTriangle(), 3));
 
-        map.add(new Entity(3, 4, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 4, new int[] {0,255,0}, new ShapeSquare(), 0));
+        map.add(new Entity(3, 4, new int[] {60,60,64}, new ShapeSquare(), 0));
+        map.add(new Entity(6, 4, new int[] {60,60,64}, new ShapeSquare(), 0));
 
-        map.add(new Entity(3, 5, new int[] {0,255,0}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 5, new int[] {0,255,0}, new ShapeSquare(), 0));
+        map.add(new Entity(3, 5, new int[] {60,60,64}, new ShapeSquare(), 0));
+        map.add(new Entity(6, 5, new int[] {60,60,64}, new ShapeSquare(), 0));
 
-        map.add(new Entity(3, 6, new int[] {0,255,0}, new ShapeTriangle(), 1));
-        map.add(new Entity(6, 6, new int[] {0,255,0}, new ShapeTriangle(), 0));
+        map.add(new Entity(3, 6, new int[] {60,60,64}, new ShapeTriangle(), 1));
+        map.add(new Entity(6, 6, new int[] {60,60,64}, new ShapeTriangle(), 0));
 
         {
             Entity door = new EntityDoor(5, 6, new int[] {0,100,255}, null, 0, 1);

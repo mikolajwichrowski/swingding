@@ -62,14 +62,14 @@ public class Player {
     public void left() {
         int nextX = x; 
         int nextY = y-1;
-        Entity collisioned = Canvas.getEntity(nextX, nextY);
+        Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
         currentShape = new ShapeTriangle();
-        if (y > 0 && collisioned == null) {
+        if (y > 0 && collisionEntity == null) {
             direction = 1;
             y = nextY;
         } else {
-            doCollision(collisioned);
+            doCollision(collisionEntity);
         }
         
     }
@@ -80,15 +80,15 @@ public class Player {
     public void up() {
         int nextX = x-1; 
         int nextY = y;
-        Entity collisioned = Canvas.getEntity(nextX, nextY);
+        Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
         currentShape = new ShapeTriangle();
 
-        if(x > 0 && collisioned == null) {
+        if(x > 0 && collisionEntity == null) {
             direction = 2;
             x = nextX;
         } else {
-            doCollision(collisioned);
+            doCollision(collisionEntity);
         }
         
     }
@@ -99,14 +99,14 @@ public class Player {
     public void right() {
         int nextX = x; 
         int nextY = y+1;
-        Entity collisioned = Canvas.getEntity(nextX, nextY);
+        Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
         currentShape = new ShapeTriangle();
-        if (y < Canvas.WIDTH && collisioned == null) {
+        if (y < Canvas.WIDTH && collisionEntity == null) {
             direction = 4;
             y = nextY;
         } else {
-            doCollision(collisioned);
+            doCollision(collisionEntity);
         }
         
     }
@@ -119,13 +119,13 @@ public class Player {
 
         int nextX = x+1; 
         int nextY = y;
-        Entity collisioned = Canvas.getEntity(nextX, nextY);
+        Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
-        if (x < Canvas.HEIGHT && collisioned == null) {
+        if (x < Canvas.HEIGHT && collisionEntity == null) {
             direction = 3;
             x = nextX;
         } else {
-            doCollision(collisioned);
+            doCollision(collisionEntity);
         }
     }
 
@@ -154,14 +154,14 @@ public class Player {
 
     /**
      * 
-     * @param collisioned
+     * @param collisionEntity
      */
-    protected void doCollision(Entity collisioned) {
-        if (collisioned instanceof EntityDoor && unlock((EntityDoor)collisioned)) {
-            Canvas.removeEntity(collisioned.x, collisioned.y);
-        } else if (collisioned instanceof EntityKey) {
-            addKey((EntityKey)collisioned);
-            Canvas.removeEntity(collisioned.x, collisioned.y);
+    private void doCollision(Entity collisionEntity) {
+        if (collisionEntity instanceof EntityDoor && unlock((EntityDoor)collisionEntity)) {
+            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+        } else if (collisionEntity instanceof EntityKey) {
+            addKey((EntityKey)collisionEntity);
+            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
         }
     }
 }

@@ -27,27 +27,27 @@ public class Form extends JFrame {
         JButton optionsButton = new JButton("OPTIONS");
         JButton quitButton = new JButton("QUIT");
         
-        // Keylistener
+        // Key listener
         KeyListener myKeyListener = new KeyListener() {
             public void keyPressed(KeyEvent e) { 
                 if (e.getKeyCode() == 37) {
                     panel.player.left();
-                    refresh();
+                    panel.repaint();
                 }
 
                 if (e.getKeyCode() == 38) {
                     panel.player.up();
-                    refresh();
+                    panel.repaint();
                 }
 
                 if (e.getKeyCode() == 39) {
                     panel.player.right();
-                    refresh();
+                    panel.repaint();
                 }
 
                 if (e.getKeyCode() == 40) {
                     panel.player.down();
-                    refresh();
+                    panel.repaint();
                 }
             }
         
@@ -85,16 +85,19 @@ public class Form extends JFrame {
 
         // Add lambda expressions for buttons
         saveButton.addActionListener(e -> {/**TODO: Add logic for save.*/});
+
         restartButton.addActionListener(e -> {
             new Form();
             dispose();
         });
+
         optionsButton.addActionListener(e -> {/**TODO: Add logic for options window.*/});
+
         quitButton.addActionListener(e -> {
             dispose();
         });
 
-        // Show form with controlls
+        // Show form with controls
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
         this.getContentPane().add(panel);
@@ -106,13 +109,5 @@ public class Form extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
-    }
-
-    /**
-     * 
-     * Repaint the canvas
-     */
-    public void refresh() {
-        panel.repaint();
     }
 }
