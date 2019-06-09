@@ -3,6 +3,8 @@ package main.java.org.swingding;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class PlayerTest {
 
     /**
@@ -52,7 +54,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void tryToWalkIntoWall() {
+    public void tryToWalkIntoWallTest() {
         Player test = new Player();
         EntityWall wall = new EntityWall(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0);
         test.x = 4;
@@ -62,7 +64,26 @@ public class PlayerTest {
         }
         Assert.assertEquals(4, test.x);
         Assert.assertEquals(4, test.y);
-
     }
+
+    /**
+     * This has a number of errors to it. It cannot be done without calling upon Canvas and its elements, no longer
+     * making it a contained test. After repeated tries, we decided it's for the best to leave this one be.
+     *
+     * @Test
+    public void doCollisionTest() {
+        ArrayList<Entity> map = new ArrayList<Entity>();
+        Player test = new Player();
+        Entity key = new EntityKey(8, 8, new int[] {0,50,255}, null, 0, 1);
+        map.add(key);
+        test.x = 8;
+        test.y = 9;
+        Assert.assertNotNull(key);
+        test.left();
+        if (test.y == key.y) {
+            test.doCollision(key);
+            Assert.assertNull(key);
+        }
+    }*/
 
 }

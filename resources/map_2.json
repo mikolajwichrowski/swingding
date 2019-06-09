@@ -1,0 +1,57 @@
+{
+  "walls": [
+    {
+      "position": {
+        "x": 6,
+        "y": 6
+      },
+      "color": {
+        "r": 30,
+        "g": 30,
+        "b": 30
+      },
+      "shape": "square",
+      "direction": 0
+    }
+  ],
+  "keys": [
+    {
+      "position": {
+        "x": 8,
+        "y": 8
+      },
+      "color": {
+        "r": 60,
+        "g": 60,
+        "b": 60
+      },
+      "value": 1
+    }
+  ],
+  "doors": [
+    {
+      "position": {
+        "x": 5,
+        "y": 5
+      },
+      "color": {
+        "r": 60,
+        "g": 60,
+        "b": 60
+      },
+      "value": 1
+    }
+  ],
+  "portal": {
+    "position": {
+      "x": 0,
+      "y": 10
+    },
+    "color": {
+      "r": 60,
+      "g": 60,
+      "b": 0
+    },
+    "shape": "star"
+  }
+}
