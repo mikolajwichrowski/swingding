@@ -1,8 +1,13 @@
 package main.java.org.swingding;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.nio.file.Paths;
+import java.io.FileWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -11,12 +16,32 @@ import javax.imageio.ImageIO;
  * Player
  */
 public class Player {
-    public int x = 0, y = 0, direction = 0;
-
-    public Shape currentShape = new ShapeSquare();
+    public int x, y, level, direction = 0;
     public ArrayList<EntityKey> keys = new ArrayList<EntityKey>();
 
-    // TODO: get GeneralPath image based on the direction
+    public Player()
+    {
+        JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
+        x = jobj.getJSONObject("position").getInt("x");
+        y = jobj.getJSONObject("position").getInt("y");
+        level = jobj.getInt("level");
+
+        JSONArray keyInts = jobj.getJSONArray("keys");
+        for (var key: keyInts) {
+            try {
+                addKey(new EntityKey(
+                        0,
+                        0,
+                        new int[] {0, 0, 0},
+                        new ShapeSquare(),
+                        Integer.parseInt(key.toString())
+                ));
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
     /**
      * 
      * @param direction
@@ -24,36 +49,18 @@ public class Player {
      * @throws Exception
      */
     public BufferedImage getImage(int direction) throws Exception {
-        BufferedImage image = ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "/images/zygmund.png"));
-
         switch(direction) {
             case 1:
-                return image;
+                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_left.png").getFile()));
             case 2:
-                return image;
+                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_up.png").getFile()));
             case 3:
-                return image;
+                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_down.png").getFile()));
             case 4:
-                return image;
+                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_right.png").getFile()));
             default:
-                return image;
+                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund.png").getFile()));
         }
-        
-        
-        
-
-        // I used this in the old version
-        // shape.moveTo(xPoints[0] + currentX, yPoints[0] + currentY);
-        // for (int i = 1; i < xPoints.length; i++) {
-        //     shape.lineTo(xPoints[i] + currentX, yPoints[i] + currentY);
-        // }
-        // shape.closePath();
-
-        // if(rotation != 0) {
-        //     AffineTransform at = new AffineTransform();
-        //     at.rotate((-Math.PI/2)*rotation, currentX+25, currentY+25);
-        //     shape.transform(at);
-        // }
     }
 
     /**
@@ -64,9 +71,8 @@ public class Player {
         int nextY = y-1;
         Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
-        currentShape = new ShapeTriangle();
+        direction = 1;
         if (y > 0 && collisionEntity == null) {
-            direction = 1;
             y = nextY;
         } else {
             doCollision(collisionEntity);
@@ -82,10 +88,8 @@ public class Player {
         int nextY = y;
         Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
-        currentShape = new ShapeTriangle();
-
+        direction = 2;
         if(x > 0 && collisionEntity == null) {
-            direction = 2;
             x = nextX;
         } else {
             doCollision(collisionEntity);
@@ -101,9 +105,8 @@ public class Player {
         int nextY = y+1;
         Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
-        currentShape = new ShapeTriangle();
+        direction = 4;
         if (y < Canvas.WIDTH && collisionEntity == null) {
-            direction = 4;
             y = nextY;
         } else {
             doCollision(collisionEntity);
@@ -115,14 +118,12 @@ public class Player {
      * 
      */
     public void down() {
-        currentShape = new ShapeTriangle();
-
         int nextX = x+1; 
         int nextY = y;
         Entity collisionEntity = Canvas.getEntity(nextX, nextY);
 
+        direction = 3;
         if (x < Canvas.HEIGHT && collisionEntity == null) {
-            direction = 3;
             x = nextX;
         } else {
             doCollision(collisionEntity);
@@ -144,11 +145,14 @@ public class Player {
      */
     private boolean unlock(EntityDoor entity) {
         boolean keyFound = false;
+        EntityKey keyRemove = null;
         for (EntityKey key : keys) {
             if(key.keyValue == entity.unlockValue) {
                 keyFound = true;
+                keyRemove = key;
             }
         }
+        keys.remove(keyRemove);
         return keyFound;
     }
 
@@ -162,6 +166,40 @@ public class Player {
         } else if (collisionEntity instanceof EntityKey) {
             addKey((EntityKey)collisionEntity);
             Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+        } else if(collisionEntity instanceof EntityPortal) {
+            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+            level++;
         }
     }
+
+    /**
+     *
+     *
+     */
+    public void saveState()
+    {
+        ArrayList<String> keyInts = new ArrayList<String>();
+        for (EntityKey key: keys) {
+            keyInts.add(""+key.keyValue);
+        }
+        String state = "{\n" +
+        "  \"level\": " + level + ",\n" +
+        "  \"position\": {\n" +
+        "    \"x\": " + x + " ,\n" +
+        "    \"y\": " + y + "\n" +
+        "  },\n" +
+        "  \"keys\": [" + String.join(",", keyInts) + "]\n" +
+        "}";
+
+        try
+        {
+            FileWriter fileWriter = new FileWriter("./state.json",false);
+            fileWriter.write(state);
+            fileWriter.close();
+        } catch (Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
 }
