@@ -20,6 +20,7 @@ public class FileUtil {
             String content = stringBuilder.toString();
             return content;
         } catch (Exception e) {
+            System.out.println(e);
             return "";
         }
     }

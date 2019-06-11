@@ -27,7 +27,7 @@ public class Player {
         level = jobj.getInt("level");
 
         JSONArray keyInts = jobj.getJSONArray("keys");
-        for (var key: keyInts) {
+        for (Object key: keyInts) {
             try {
                 addKey(new EntityKey(
                         0,
