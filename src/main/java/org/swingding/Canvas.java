@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Canvas
  */
 public class Canvas extends JPanel {
-    private static final long serialVersionUID = 1L; // Auto generated serial
+    private static final long serialVersionUID = 112031231023018201L; // Auto generated serial
     public static int WIDTH = 10;
     public static int HEIGHT = 10;
     public static ArrayList<Entity> map;
@@ -59,7 +59,7 @@ public class Canvas extends JPanel {
 
         Graphics2D body = (Graphics2D)g;
         try {
-            body.drawImage(player.getImage(0), calculatedX, calculatedY, 50, 50, null);
+            body.drawImage(player.getImage(player.direction), calculatedX, calculatedY, 50, 50, null);
         } catch (Exception e) {
             body.setColor(new Color(255, 255, 255));
             body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, 1));
@@ -82,7 +82,7 @@ public class Canvas extends JPanel {
             // Color from the entity sounds good but the path is something every entity has to have different.. direction is just optional
             if(entity instanceof EntityDoor){
                 try {
-                    body.drawImage(((EntityDoor)entity).getImage(), calculatedX, calculatedY, 50, 50, null);
+                    body.drawImage(((EntityDoor)entity).getImage(0), calculatedX, calculatedY, 50, 50, null);
                 } catch (Exception e) {
                     body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
                     body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, entity.direction));
@@ -98,7 +98,7 @@ public class Canvas extends JPanel {
 
                 if(!keyExists) {
                     try {
-                        body.drawImage(((EntityKey)entity).getImage(), calculatedX, calculatedY, 50, 50, null);
+                        body.drawImage(((EntityKey)entity).getImage(0), calculatedX, calculatedY, 50, 50, null);
                     } catch (Exception e) {
                         body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
                         body.fill(new ShapeTriangle().getPath(calculatedX, calculatedY, entity.direction));

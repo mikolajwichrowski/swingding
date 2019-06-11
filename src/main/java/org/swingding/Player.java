@@ -16,7 +16,7 @@ import javax.swing.*;
 /**
  * Player
  */
-public class Player {
+public class Player implements Image {
     public int x, y, level, direction = 0;
     public ArrayList<EntityKey> keys = new ArrayList<EntityKey>();
 
@@ -78,7 +78,6 @@ public class Player {
         } else {
             doCollision(collisionEntity);
         }
-        
     }
 
     /**
@@ -95,7 +94,6 @@ public class Player {
         } else {
             doCollision(collisionEntity);
         }
-        
     }
 
     /**
@@ -112,7 +110,6 @@ public class Player {
         } else {
             doCollision(collisionEntity);
         }
-        
     }
 
     /**
@@ -199,6 +196,7 @@ public class Player {
 
         try
         {
+            // TODO: move to FileUtil
             FileWriter fileWriter = new FileWriter("./state.json",false);
             fileWriter.write(state);
             fileWriter.close();
