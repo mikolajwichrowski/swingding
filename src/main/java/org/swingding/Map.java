@@ -79,7 +79,7 @@ public class Map {
             );
         } catch (Exception e)
         {
-
+            System.out.println(e);
         }
     }
 

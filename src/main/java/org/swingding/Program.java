@@ -35,7 +35,7 @@ public class Program {
 				@Override
 				public void paintComponent(Graphics g) {
 					try {
-						BufferedImage img = ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "/images/loading.png"));
+						BufferedImage img = ImageIO.read(new File(getClass().getClassLoader().getResource("loading.png").getFile()));
 						g.drawImage(img, 0, 0, 500, 500, null);
 					} catch (Exception e) {
 					}

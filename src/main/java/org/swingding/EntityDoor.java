@@ -17,11 +17,10 @@ public class EntityDoor extends Entity implements Image {
      * @param y
      * @param rgb
      * @param shape
-     * @param direction
      * @param unlockValue
      */
-    public EntityDoor(int x, int y, int[] rgb, Shape shape, int direction, int unlockValue) {
-        super(x, y, rgb, shape, direction);
+    public EntityDoor(int x, int y, int[] rgb, Shape shape, int unlockValue) {
+        super(x, y, rgb, shape, 0);
         this.unlockValue = unlockValue;
     }
 
@@ -29,6 +28,6 @@ public class EntityDoor extends Entity implements Image {
      * 
      */
     public BufferedImage getImage() throws Exception {
-        return ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "/images/door_" + unlockValue + ".png"));
+        return ImageIO.read(new File(getClass().getClassLoader().getResource("door_" + unlockValue + ".png").getFile()));
     }
 }

@@ -17,11 +17,10 @@ public class EntityKey extends Entity implements Image {
      * @param y
      * @param rgb
      * @param shape
-     * @param direction
      * @param keyValue
      */
-    public EntityKey(int x, int y, int[] rgb, Shape shape, int direction, int keyValue) {
-        super(x, y, rgb, shape, direction);
+    public EntityKey(int x, int y, int[] rgb, Shape shape, int keyValue) {
+        super(x, y, rgb, shape, 0);
         this.keyValue = keyValue;
     }
 
@@ -29,6 +28,6 @@ public class EntityKey extends Entity implements Image {
      * 
      */
     public BufferedImage getImage() throws Exception {
-        return ImageIO.read(new File(Paths.get("").toAbsolutePath().toString() + "/images/key_" + keyValue + ".png"));
+        return ImageIO.read(new File(getClass().getClassLoader().getResource("key_" + keyValue + ".png").getFile()));
     }
 }

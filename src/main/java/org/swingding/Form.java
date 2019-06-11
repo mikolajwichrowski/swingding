@@ -3,6 +3,7 @@ package main.java.org.swingding;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /**
  * Form class die wordt aangeroepen in de Program Class.
@@ -22,6 +23,8 @@ public class Form extends JFrame {
     public Form() {
         // Panel
         this.panel = new Canvas();
+
+        // Buttons
         JButton saveButton = new JButton("SAVE");
         JButton restartButton = new JButton("RESTART");
         JButton optionsButton = new JButton("OPTIONS");
@@ -84,14 +87,29 @@ public class Form extends JFrame {
         panel.setFocusTraversalKeysEnabled(false);
 
         // Add lambda expressions for buttons
-        saveButton.addActionListener(e -> {/**TODO: Add logic for save.*/});
+        saveButton.addActionListener(e -> {
+            panel.player.saveState();
+            panel.requestFocus();
+        });
 
         restartButton.addActionListener(e -> {
+            // TODO: Show message -> All progress wil be lost
+            panel.player.x = 0;
+            panel.player.y = 0;
+            panel.player.level = 1;
+            panel.player.keys = new ArrayList<EntityKey>();
+
+            panel.player.saveState();
             new Form();
             dispose();
         });
 
-        optionsButton.addActionListener(e -> {/**TODO: Add logic for options window.*/});
+        optionsButton.addActionListener(e -> {
+            /**
+             * TODO: Add logic for options window.
+             * Play/Pause music. No more no less
+             * */
+        });
 
         quitButton.addActionListener(e -> {
             dispose();
@@ -109,5 +127,7 @@ public class Form extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
+
+
     }
 }

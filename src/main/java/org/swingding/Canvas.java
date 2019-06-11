@@ -10,43 +10,15 @@ public class Canvas extends JPanel {
     private static final long serialVersionUID = 1L; // Auto generated serial
     public static int WIDTH = 10;
     public static int HEIGHT = 10;
-    public static ArrayList<Entity> map = new ArrayList<Entity>();
-    public Player player = new Player();
+    public static ArrayList<Entity> map;
+    public Player player;
+    public static int lastPlayerLevel = 0;
 
-    /**
-     * 
-     */
-    public Canvas() {
-        // This is the "map"
-        map.add(new Entity(3, 3, new int[] {60,60,64}, new ShapeTriangle(), 2));
-        map.add(new Entity(4, 3, new int[] {60,60,64}, new ShapeSquare(), 0));
-        map.add(new Entity(5, 3, new int[] {60,60,64}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 3, new int[] {60,60,64}, new ShapeTriangle(), 3));
-
-        map.add(new Entity(3, 4, new int[] {60,60,64}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 4, new int[] {60,60,64}, new ShapeSquare(), 0));
-
-        map.add(new Entity(3, 5, new int[] {60,60,64}, new ShapeSquare(), 0));
-        map.add(new Entity(6, 5, new int[] {60,60,64}, new ShapeSquare(), 0));
-
-        map.add(new Entity(3, 6, new int[] {60,60,64}, new ShapeTriangle(), 1));
-        map.add(new Entity(6, 6, new int[] {60,60,64}, new ShapeTriangle(), 0));
-
-        {
-            Entity door = new EntityDoor(5, 6, new int[] {0,100,255}, null, 0, 1);
-            map.add(door);
-
-            Entity key = new EntityKey(8, 8, new int[] {0,50,255}, null, 0, 1);
-            map.add(key);
-        }
-
-        {
-            Entity door = new EntityDoor(4, 6, new int[] {0,255,100}, null, 0, 2);
-            map.add(door);
-
-            Entity key = new EntityKey(0, 8, new int[] {0,255,50}, null, 0, 2);
-            map.add(key);
-        }
+    public Canvas()
+    {
+        player = new Player();
+        lastPlayerLevel = player.level;
+        map = new Map(player.level).getLayout();
     }
 
     /**
@@ -57,6 +29,22 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         this.setBackground(new Color(255, 255, 255));
 
+        if(lastPlayerLevel != player.level) {
+            lastPlayerLevel = player.level;
+            player.x = 0;
+            player.y = 0;
+
+            ArrayList<Entity> newMap = new Map(player.level).getLayout();
+            if(newMap.size() > 0) {
+                map = newMap;
+            } else {
+                player.level = 1;
+                lastPlayerLevel = player.level;
+                map = new Map(player.level).getLayout();
+            }
+
+            repaint();
+        }
         drawEntities(g, map);
     }
 
@@ -100,11 +88,21 @@ public class Canvas extends JPanel {
                     body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, entity.direction));
                 }
             } else if(entity instanceof EntityKey) {
-                try {
-                    body.drawImage(((EntityKey)entity).getImage(), calculatedX, calculatedY, 50, 50, null);
-                } catch (Exception e) {
-                    body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
-                    body.fill(new ShapeTriangle().getPath(calculatedX, calculatedY, entity.direction));
+                boolean keyExists = false;
+                for (EntityKey playerKey : player.keys) {
+                    if(((EntityKey) entity).keyValue == playerKey.keyValue)
+                    {
+                        keyExists = true;
+                    }
+                }
+
+                if(!keyExists) {
+                    try {
+                        body.drawImage(((EntityKey)entity).getImage(), calculatedX, calculatedY, 50, 50, null);
+                    } catch (Exception e) {
+                        body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
+                        body.fill(new ShapeTriangle().getPath(calculatedX, calculatedY, entity.direction));
+                    }
                 }
             } else {
                 body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
