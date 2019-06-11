@@ -17,18 +17,23 @@ public class Form extends JFrame {
     private static final long serialVersionUID = 8557974571427438540L;
     public Canvas panel;
 
+    private JButton saveButton;
+    private JButton restartButton;
+    private JButton replayButton;
+    private JButton quitButton;
+
     /**
      * 
      */
     public Form() {
         // Panel
-        this.panel = new Canvas();
+        panel = new Canvas();
 
         // Buttons
-        JButton saveButton = new JButton("SAVE");
-        JButton restartButton = new JButton("RESTART");
-        JButton optionsButton = new JButton("OPTIONS");
-        JButton quitButton = new JButton("QUIT");
+        saveButton = new JButton("SAVE");
+        restartButton = new JButton("RESTART");
+        replayButton = new JButton("REPLAY");
+        quitButton = new JButton("QUIT");
         
         // Key listener
         KeyListener myKeyListener = new KeyListener() {
@@ -78,7 +83,7 @@ public class Form extends JFrame {
         panel.setBounds(offsetX-8,offsetY-10, paneWidth,paneHeight);
         saveButton.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
         restartButton.setBounds((buttonX*2)+buttonWidth, buttonY, buttonWidth, buttonHeight);
-        optionsButton.setBounds((buttonX*3)+(buttonWidth*2), buttonY, buttonWidth, buttonHeight);
+        replayButton.setBounds((buttonX*3)+(buttonWidth*2), buttonY, buttonWidth, buttonHeight);
         quitButton.setBounds((buttonX*4)+(buttonWidth*3), buttonY, buttonWidth, buttonHeight);
 
         // Add KeyListener for panel
@@ -87,47 +92,49 @@ public class Form extends JFrame {
         panel.setFocusTraversalKeysEnabled(false);
 
         // Add lambda expressions for buttons
-        saveButton.addActionListener(e -> {
-            panel.player.saveState();
-            panel.requestFocus();
-        });
-
-        restartButton.addActionListener(e -> {
-            // TODO: Show message -> All progress wil be lost
-            panel.player.x = 0;
-            panel.player.y = 0;
-            panel.player.level = 1;
-            panel.player.keys = new ArrayList<EntityKey>();
-
-            panel.player.saveState();
-            new Form();
-            dispose();
-        });
-
-        optionsButton.addActionListener(e -> {
-            /**
-             * TODO: Add logic for options window.
-             * Play/Pause music. No more no less
-             * */
-        });
-
-        quitButton.addActionListener(e -> {
-            dispose();
-        });
+        saveButton.addActionListener(e -> saveEvent());
+        restartButton.addActionListener(e -> reloadEvent());
+        replayButton.addActionListener(e -> replayEvent());
+        quitButton.addActionListener(e -> dispose());
 
         // Show form with controls
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
-        this.getContentPane().add(panel);
-        this.add(saveButton);
-        this.add(restartButton);
-        this.add(optionsButton);
-        this.add(quitButton);
-        this.setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        getContentPane().add(panel);
+        add(saveButton);
+        add(restartButton);
+        add(replayButton);
+        add(quitButton);
+        setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
+    }
 
+    public void reloadEvent()
+    {
+        panel.player.x = 0;
+        panel.player.y = 0;
+        panel.player.level = 1;
+        panel.player.keys = new ArrayList<EntityKey>();
 
+        panel.player.saveState();
+        new Form();
+        dispose();
+    }
+
+    public void replayEvent()
+    {
+        panel.player.x = 0;
+        panel.player.y = 0;
+        panel.player.keys = new ArrayList<EntityKey>();
+        new Form();
+        dispose();
+    }
+
+    public void saveEvent()
+    {
+        panel.player.saveState();
+        panel.requestFocus();
     }
 }

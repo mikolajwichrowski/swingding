@@ -1,5 +1,6 @@
 package main.java.org.swingding;
 
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,81 +10,244 @@ public class PlayerTest {
 
     /**
      * Unit Tests for Player class.
-     * The four move method tests are for the requirement: "Poppetje kan over de x en y as van het scherm bewegen. Deze beweging verloopt per vlak net als een pion in een schaakspel."
-     * The collision method test is for the requirement: "Muren weerhouden het poppetje om er tegen aan te lopen."
+     * The four move method tests are for the requirement:
+     *  - "Poppetje kan over de x en y as van het scherm bewegen."
+     *  - "Deze beweging verloopt per vlak net als een pion in een schaakspel."
+     * The collision method tests are for the requirement:
+     * - "Muren weerhouden het poppetje om er tegen aan te lopen."
+     * - "Sleutels openen deuren. "
+     * - "......"
+     * The save state test is for the nice-to-have requirement:
+     * - "Na het opslaan van het spel kan de speler weer verder spelen als hij het spel opnieuw opstart."
      */
 
     @Test
     public void leftTest() {
         Player test = new Player();
+
+        // Place player on location
         test.x = 3;
         test.y = 4;
+
+        // Move player
         test.left();
+
+        // Check player location
         Assert.assertEquals(3, test.x);
         Assert.assertEquals(3, test.y);
+
+        // Made by Mikolaj
     }
 
     @Test
     public void rightTest() {
         Player test = new Player();
+
+        // Place player
         test.x = 6;
         test.y = 5;
+
+        // Move player
         test.right();
+
+        // Check player location
         Assert.assertEquals(6, test.x);
         Assert.assertEquals(6, test.y);
+
+        // Made by Tiko
     }
 
     @Test
     public void upTest() {
         Player test = new Player();
+
+        // Place player
         test.x = 2;
         test.y = 4;
+
+        // Move player
         test.up();
+
+        // Check player location
         Assert.assertEquals(1, test.x);
         Assert.assertEquals(4, test.y);
+
+        // Made by Tiko
     }
 
     @Test
     public void downTest() {
         Player test = new Player();
+
+        // Place player
         test.x = 9;
         test.y = 9;
+
+        // Move player
         test.down();
+
+        // Check player location
         Assert.assertEquals(10, test.x);
         Assert.assertEquals(9, test.y);
+
+        // Made by Tiko
     }
 
     @Test
     public void tryToWalkIntoWallTest() {
-        Player test = new Player();
+        Form form = new Form();
+        Player player = new Player();
         EntityWall wall = new EntityWall(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0);
-        test.x = 4;
-        test.y = 4;
-        if (test.y-1!=wall.y) {
-            test.left();
-        }
-        Assert.assertEquals(4, test.x);
-        Assert.assertEquals(4, test.y);
+
+        // Add map with one wall
+        form.panel.map = new ArrayList<Entity>();
+        form.panel.map.add(wall);
+        form.panel.player = player;
+
+        // Place player on position
+        form.panel.player.x = 4;
+        form.panel.player.y = 4;
+
+        // Move player
+        form.panel.player.left();
+        form.panel.player.left();
+
+        // Check player location
+        Assert.assertEquals(4, form.panel.player.x);
+        Assert.assertEquals(4, form.panel.player.y);
+
+        // Made by Mikolaj
     }
 
-    /**
-     * This has a number of errors to it. It cannot be done without calling upon Canvas and its elements, no longer
-     * making it a contained test. After repeated tries, we decided it's for the best to leave this one be.
-     *
-     * @Test
-    public void doCollisionTest() {
-        ArrayList<Entity> map = new ArrayList<Entity>();
-        Player test = new Player();
-        Entity key = new EntityKey(8, 8, new int[] {0,50,255}, null, 0, 1);
-        map.add(key);
-        test.x = 8;
-        test.y = 9;
-        Assert.assertNotNull(key);
-        test.left();
-        if (test.y == key.y) {
-            test.doCollision(key);
-            Assert.assertNull(key);
-        }
-    }*/
+    @Test
+    public void tryToWalkIntoDoorWithoutKeyTest() {
+        Form form = new Form();
+        Player player = new Player();
+        EntityDoor door = new EntityDoor(4, 3, new int[] {0,255,0}, null, 1);
 
+        // Add map with one door
+        form.panel.map = new ArrayList<Entity>();
+        form.panel.map.add(door);
+        form.panel.player = player;
+
+        // Place player on position
+        form.panel.player.x = 4;
+        form.panel.player.y = 4;
+
+        // Move player
+        form.panel.player.left();
+        form.panel.player.left();
+
+        // Test player position
+        Assert.assertEquals(4, form.panel.player.x);
+        Assert.assertEquals(4, form.panel.player.y);
+
+        // Made by Pawel
+    }
+
+    @Test
+    public void tryToWalkIntoDoorWithKeyTest() {
+        Form form = new Form();
+        Player player = new Player();
+        player.keys.add(new EntityKey(0,0, new int[] {0,255,0}, null, 1));
+        EntityDoor door = new EntityDoor(4, 3, new int[] {0,255,0}, null, 1);
+
+        // Add clear map with one key
+        form.panel.map = new ArrayList<Entity>();
+        form.panel.map.add(door);
+        form.panel.player = player;
+
+        // Place player on position
+        form.panel.player.x = 4;
+        form.panel.player.y = 4;
+
+        // Move player
+        form.panel.player.left();
+        form.panel.player.left();
+
+        // Check player position
+        Assert.assertEquals(4, form.panel.player.x);
+        Assert.assertEquals(3, form.panel.player.y);
+
+        // Made by Pawel
+    }
+
+    @Test
+    public void tryToWalkIntoKeyTest() {
+        Form form = new Form();
+        Player player = new Player();
+        EntityKey key = new EntityKey(4,3, new int[] {0,255,0}, null, 1);
+
+        // Add clear map with one key
+        form.panel.map = new ArrayList<Entity>();
+        form.panel.map.add(key);
+        form.panel.player = player;
+
+        // Place player on position
+        form.panel.player.x = 4;
+        form.panel.player.y = 4;
+
+        // Move player
+        form.panel.player.left();
+        form.panel.player.left();
+
+        // Test player position and amount of keys
+        Assert.assertEquals(4, form.panel.player.x);
+        Assert.assertEquals(3, form.panel.player.y);
+        Assert.assertEquals(form.panel.player.keys.size(), 1);
+
+        // Made by Tiko
+    }
+
+    @Test
+    public void saveStateTest() {
+        // Create save state
+        Player player = new Player();
+        player.x = 5;
+        player.y = 5;
+        player.level = 5;
+        player.saveState();
+
+        // Check save state
+        JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
+        Assert.assertEquals(jobj.getJSONObject("position").getInt("x"), 5);
+        Assert.assertEquals(jobj.getJSONObject("position").getInt("y"), 5);
+        Assert.assertEquals(jobj.getInt("level"), 5);
+
+        // Clear save after test
+        player.x = 0;
+        player.y = 0;
+        player.level = 0;
+        player.keys = new ArrayList<EntityKey>();
+        player.saveState();
+
+        // Made by Tiko
+    }
+
+    @Test
+    public void loadStateTest() {
+        // Create save state
+        Player player = new Player();
+        player.x = 5;
+        player.y = 5;
+        player.level = 5;
+        player.saveState();
+
+        // Reload player
+        player = new Player();
+
+        // Test to see if save state is loaded
+        Assert.assertEquals(player.x, 5);
+        Assert.assertEquals(player.y, 5);
+        Assert.assertEquals(player.level, 5);
+
+        // Clear save after test
+        player.x = 0;
+        player.y = 0;
+        player.level = 0;
+        player.keys = new ArrayList<EntityKey>();
+        player.saveState();
+
+        // Made by Pawel
+    }
 }
