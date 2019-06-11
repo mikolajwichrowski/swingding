@@ -27,7 +27,7 @@ public class Form extends JFrame {
         // Buttons
         JButton saveButton = new JButton("SAVE");
         JButton restartButton = new JButton("RESTART");
-        JButton optionsButton = new JButton("OPTIONS");
+        JButton replayButton = new JButton("REPLAY");
         JButton quitButton = new JButton("QUIT");
         
         // Key listener
@@ -78,7 +78,7 @@ public class Form extends JFrame {
         panel.setBounds(offsetX-8,offsetY-10, paneWidth,paneHeight);
         saveButton.setBounds(buttonX, buttonY, buttonWidth, buttonHeight);
         restartButton.setBounds((buttonX*2)+buttonWidth, buttonY, buttonWidth, buttonHeight);
-        optionsButton.setBounds((buttonX*3)+(buttonWidth*2), buttonY, buttonWidth, buttonHeight);
+        replayButton.setBounds((buttonX*3)+(buttonWidth*2), buttonY, buttonWidth, buttonHeight);
         quitButton.setBounds((buttonX*4)+(buttonWidth*3), buttonY, buttonWidth, buttonHeight);
 
         // Add KeyListener for panel
@@ -87,29 +87,11 @@ public class Form extends JFrame {
         panel.setFocusTraversalKeysEnabled(false);
 
         // Add lambda expressions for buttons
-        saveButton.addActionListener(e -> {
-            panel.player.saveState();
-            panel.requestFocus();
-        });
+        saveButton.addActionListener(e -> saveEvent());
 
-        restartButton.addActionListener(e -> {
-            // TODO: Show message -> All progress wil be lost
-            panel.player.x = 0;
-            panel.player.y = 0;
-            panel.player.level = 1;
-            panel.player.keys = new ArrayList<EntityKey>();
+        restartButton.addActionListener(e -> reloadEvent());
 
-            panel.player.saveState();
-            new Form();
-            dispose();
-        });
-
-        optionsButton.addActionListener(e -> {
-            /**
-             * TODO: Add logic for options window.
-             * Play/Pause music. No more no less
-             * */
-        });
+        replayButton.addActionListener(e -> replayEvent());
 
         quitButton.addActionListener(e -> {
             dispose();
@@ -121,13 +103,38 @@ public class Form extends JFrame {
         this.getContentPane().add(panel);
         this.add(saveButton);
         this.add(restartButton);
-        this.add(optionsButton);
+        this.add(replayButton);
         this.add(quitButton);
         this.setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
+    }
 
+    public void reloadEvent()
+    {
+        panel.player.x = 0;
+        panel.player.y = 0;
+        panel.player.level = 1;
+        panel.player.keys = new ArrayList<EntityKey>();
 
+        panel.player.saveState();
+        new Form();
+        dispose();
+    }
+
+    public void replayEvent()
+    {
+        panel.player.x = 0;
+        panel.player.y = 0;
+        panel.player.keys = new ArrayList<EntityKey>();
+        new Form();
+        dispose();
+    }
+
+    public void saveEvent()
+    {
+        panel.player.saveState();
+        panel.requestFocus();
     }
 }
