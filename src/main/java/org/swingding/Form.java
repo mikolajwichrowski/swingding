@@ -93,9 +93,7 @@ public class Form extends JFrame {
 
         replayButton.addActionListener(e -> replayEvent());
 
-        quitButton.addActionListener(e -> {
-            dispose();
-        });
+        quitButton.addActionListener(e -> dispose());
 
         // Show form with controls
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
