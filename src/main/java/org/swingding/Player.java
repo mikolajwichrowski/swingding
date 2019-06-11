@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * Player
@@ -161,8 +162,13 @@ public class Player {
      * @param collisionEntity
      */
     private void doCollision(Entity collisionEntity) {
-        if (collisionEntity instanceof EntityDoor && unlock((EntityDoor)collisionEntity)) {
-            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+        if (collisionEntity instanceof EntityDoor) {
+            if(unlock((EntityDoor)collisionEntity)) {
+                Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Je hebt niet het juiste vodka merk bij je...\nGa weg pleb!\n.....\n...");
+            }
         } else if (collisionEntity instanceof EntityKey) {
             addKey((EntityKey)collisionEntity);
             Canvas.removeEntity(collisionEntity.x, collisionEntity.y);

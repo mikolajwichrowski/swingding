@@ -13,8 +13,7 @@ import java.util.ArrayList;
  * Op deze Class komt het Canvas en de Button interface te staan.
  */
 public class Form extends JFrame {
-    // Auto generated serial
-    private static final long serialVersionUID = 8557974571427438540L;
+    private static final long serialVersionUID = 8557974571427438540L; // Auto generated serial
     public Canvas panel;
 
     private JButton saveButton;
@@ -128,6 +127,9 @@ public class Form extends JFrame {
         panel.player.x = 0;
         panel.player.y = 0;
         panel.player.keys = new ArrayList<EntityKey>();
+
+        panel.player.saveState();
+
         new Form();
         dispose();
     }
