@@ -17,18 +17,23 @@ public class Form extends JFrame {
     private static final long serialVersionUID = 8557974571427438540L;
     public Canvas panel;
 
+    private JButton saveButton;
+    private JButton restartButton;
+    private JButton replayButton;
+    private JButton quitButton;
+
     /**
      * 
      */
     public Form() {
         // Panel
-        this.panel = new Canvas();
+        panel = new Canvas();
 
         // Buttons
-        JButton saveButton = new JButton("SAVE");
-        JButton restartButton = new JButton("RESTART");
-        JButton replayButton = new JButton("REPLAY");
-        JButton quitButton = new JButton("QUIT");
+        saveButton = new JButton("SAVE");
+        restartButton = new JButton("RESTART");
+        replayButton = new JButton("REPLAY");
+        quitButton = new JButton("QUIT");
         
         // Key listener
         KeyListener myKeyListener = new KeyListener() {
@@ -88,25 +93,22 @@ public class Form extends JFrame {
 
         // Add lambda expressions for buttons
         saveButton.addActionListener(e -> saveEvent());
-
         restartButton.addActionListener(e -> reloadEvent());
-
         replayButton.addActionListener(e -> replayEvent());
-
         quitButton.addActionListener(e -> dispose());
 
         // Show form with controls
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
-        this.getContentPane().add(panel);
-        this.add(saveButton);
-        this.add(restartButton);
-        this.add(replayButton);
-        this.add(quitButton);
-        this.setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+        getContentPane().add(panel);
+        add(saveButton);
+        add(restartButton);
+        add(replayButton);
+        add(quitButton);
+        setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(true);
     }
 
     public void reloadEvent()
