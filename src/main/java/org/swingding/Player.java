@@ -50,18 +50,22 @@ public class Player implements Image {
      * @throws Exception
      */
     public BufferedImage getImage(int direction) throws Exception {
+        String name = "zygmund";
         switch(direction) {
             case 1:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_left.png").getFile()));
+                name += "_left.png";
             case 2:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_up.png").getFile()));
+                name += "_up.png";
             case 3:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_down.png").getFile()));
+                name += "_down.png";
             case 4:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_right.png").getFile()));
+                name += "_right.png";
             default:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund.png").getFile()));
+                name += ".png";
+                break;
         }
+
+        return ImageIO.read(FileUtil.resourceReader(name));
     }
 
     /**
@@ -170,6 +174,7 @@ public class Player implements Image {
             addKey((EntityKey)collisionEntity);
             Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
         } else if(collisionEntity instanceof EntityPortal) {
+            JOptionPane.showMessageDialog(null, "Level up blyat!");
             Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
             level++;
         }
@@ -179,7 +184,7 @@ public class Player implements Image {
      *
      *
      */
-    public void saveState()
+    public String toString()
     {
         ArrayList<String> keyInts = new ArrayList<String>();
         for (EntityKey key: keys) {
@@ -194,16 +199,7 @@ public class Player implements Image {
         "  \"keys\": [" + String.join(",", keyInts) + "]\n" +
         "}";
 
-        try
-        {
-            // TODO: move to FileUtil
-            FileWriter fileWriter = new FileWriter("./state.json",false);
-            fileWriter.write(state);
-            fileWriter.close();
-        } catch (Exception e)
-        {
-            System.out.println(e);
-        }
+        return state;
     }
 
 }

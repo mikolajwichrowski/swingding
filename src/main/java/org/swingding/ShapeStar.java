@@ -10,8 +10,8 @@ public class ShapeStar extends Shape {
     public ShapeStar() {
         // TODO: make this a star
         super(
-            new int[] {10, 50, 100, 150, 200, 250, 300, 350},
-            new int[] {10, 50,  10,  50,  10,  50,  10,  50}
+            new int[] {30, 20, 10, 20, 0, 30, 50, 40, 50, 40, 29},
+            new int[] {0, 10, 10, 30, 30, 30, 40, 30, 20, 20, -1}
         );
         this.shapeIndex = 1;
     }

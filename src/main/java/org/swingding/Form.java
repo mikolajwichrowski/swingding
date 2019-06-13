@@ -117,7 +117,8 @@ public class Form extends JFrame {
         panel.player.level = 1;
         panel.player.keys = new ArrayList<EntityKey>();
 
-        panel.player.saveState();
+        saveEvent();
+
         new Form();
         dispose();
     }
@@ -128,7 +129,7 @@ public class Form extends JFrame {
         panel.player.y = 0;
         panel.player.keys = new ArrayList<EntityKey>();
 
-        panel.player.saveState();
+        saveEvent();
 
         new Form();
         dispose();
@@ -136,7 +137,7 @@ public class Form extends JFrame {
 
     public void saveEvent()
     {
-        panel.player.saveState();
+        FileUtil.fileWriter("state.json", panel.player.toString());
         panel.requestFocus();
     }
 }

@@ -206,7 +206,7 @@ public class PlayerTest {
         player.x = 5;
         player.y = 5;
         player.level = 5;
-        player.saveState();
+        FileUtil.fileWriter("state.json", player.toString());
 
         // Check save state
         JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
@@ -219,7 +219,7 @@ public class PlayerTest {
         player.y = 0;
         player.level = 0;
         player.keys = new ArrayList<EntityKey>();
-        player.saveState();
+        FileUtil.fileWriter("state.json", player.toString());
 
         // Made by Tiko
     }
@@ -231,7 +231,7 @@ public class PlayerTest {
         player.x = 5;
         player.y = 5;
         player.level = 5;
-        player.saveState();
+        FileUtil.fileWriter("state.json", player.toString());
 
         // Reload player
         player = new Player();
@@ -246,7 +246,7 @@ public class PlayerTest {
         player.y = 0;
         player.level = 0;
         player.keys = new ArrayList<EntityKey>();
-        player.saveState();
+        FileUtil.fileWriter("state.json", player.toString());
 
         // Made by Pawel
     }
