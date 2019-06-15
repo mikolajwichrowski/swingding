@@ -2,6 +2,7 @@ package main.java.org.swingding;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 /**
  * Canvas
@@ -59,7 +60,7 @@ public class Canvas extends JPanel {
 
         Graphics2D body = (Graphics2D)g;
         try {
-            body.drawImage(player.getImage(player.direction), calculatedX, calculatedY, 50, 50, null);
+            body.drawImage(p.getImage(p.direction), calculatedX, calculatedY, 50, 50, null);
         } catch (Exception e) {
             body.setColor(new Color(255, 255, 255));
             body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, 1));
@@ -90,7 +91,7 @@ public class Canvas extends JPanel {
             } else if(entity instanceof EntityKey) {
                 boolean keyExists = false;
                 for (EntityKey playerKey : player.keys) {
-                    if(((EntityKey) entity).keyValue == playerKey.keyValue)
+                    if(((EntityKey)entity).keyValue == playerKey.keyValue && ((EntityKey)entity).x == playerKey.x && ((EntityKey)entity).y == playerKey.y)
                     {
                         keyExists = true;
                     }

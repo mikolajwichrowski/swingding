@@ -2,8 +2,6 @@ package main.java.org.swingding;
 
 import org.json.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Map {
@@ -31,7 +29,7 @@ public class Map {
                 );
             }
 
-            JSONArray keyEntities = jobj.getJSONArray("doors");
+            JSONArray keyEntities = jobj.getJSONArray("keys");
             for (int i = 0; i < keyEntities.length(); i++) {
                 layout.add(
                         new EntityKey(
@@ -48,7 +46,7 @@ public class Map {
                 );
             }
 
-            JSONArray doorEntities = jobj.getJSONArray("keys");
+            JSONArray doorEntities = jobj.getJSONArray("doors");
             for (int i = 0; i < doorEntities.length(); i++) {
                 layout.add(
                         new EntityDoor(

@@ -36,7 +36,7 @@ public class PlayerTest {
         Assert.assertEquals(3, test.x);
         Assert.assertEquals(3, test.y);
 
-        // Made by Mikolaj
+        // Made by Tiko
     }
 
     @Test
@@ -142,7 +142,7 @@ public class PlayerTest {
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(4, form.panel.player.y);
 
-        // Made by Pawel
+        // Made by Mikolaj
     }
 
     @Test
@@ -169,7 +169,7 @@ public class PlayerTest {
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(3, form.panel.player.y);
 
-        // Made by Pawel
+        // Made by Mikolaj
     }
 
     @Test
@@ -196,7 +196,7 @@ public class PlayerTest {
         Assert.assertEquals(3, form.panel.player.y);
         Assert.assertEquals(form.panel.player.keys.size(), 1);
 
-        // Made by Tiko
+        // Made by Mikolaj
     }
 
     @Test
@@ -221,7 +221,7 @@ public class PlayerTest {
         player.keys = new ArrayList<EntityKey>();
         FileUtil.fileWriter("state.json", player.toString());
 
-        // Made by Tiko
+        // Made by Pawel
     }
 
     @Test

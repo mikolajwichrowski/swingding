@@ -29,7 +29,7 @@ public class FileUtil {
 
     public static File resourceReader(String resourceName)
     {
-        return new File(FileUtil.class.getClassLoader().getResource(resourceName).getFile());
+        return new File(Thread.currentThread().getContextClassLoader().getResource(resourceName).getFile());
     }
 
     public static void fileWriter(String filename, String content)

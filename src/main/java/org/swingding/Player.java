@@ -28,17 +28,21 @@ public class Player implements Image {
         level = jobj.getInt("level");
 
         JSONArray keyInts = jobj.getJSONArray("keys");
-        for (Object key: keyInts) {
+        for (int i = 0; i < keyInts.length(); i++) {
             try {
                 addKey(new EntityKey(
-                        0,
-                        0,
-                        new int[] {0, 0, 0},
-                        new ShapeSquare(),
-                        Integer.parseInt(key.toString())
+                        keyInts.getJSONObject(i).getInt("x"),
+                        keyInts.getJSONObject(i).getInt("y"),
+                            new int[] {
+                                    keyInts.getJSONObject(i).getInt("r"),
+                                    keyInts.getJSONObject(i).getInt("g"),
+                                    keyInts.getJSONObject(i).getInt("b")
+                            },
+                            new ShapeSquare(),
+                            keyInts.getJSONObject(i).getInt("value")
                 ));
             } catch (Exception e) {
-
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -54,14 +58,16 @@ public class Player implements Image {
         switch(direction) {
             case 1:
                 name += "_left.png";
+                break;
             case 2:
                 name += "_up.png";
+                break;
+            default:
             case 3:
                 name += "_down.png";
+                break;
             case 4:
                 name += "_right.png";
-            default:
-                name += ".png";
                 break;
         }
 
@@ -148,11 +154,9 @@ public class Player implements Image {
     private boolean unlock(EntityDoor entity) {
         boolean keyFound = false;
         EntityKey keyRemove = null;
-        for (EntityKey key : keys) {
-            if(key.keyValue == entity.unlockValue) {
-                keyFound = true;
-                keyRemove = key;
-            }
+        if(keys.size()-1 >= 0 && keys.get(keys.size()-1).keyValue == entity.unlockValue) {
+            keyFound = true;
+            keyRemove = keys.get(keys.size()-1);
         }
         keys.remove(keyRemove);
         return keyFound;
@@ -186,18 +190,35 @@ public class Player implements Image {
      */
     public String toString()
     {
-        ArrayList<String> keyInts = new ArrayList<String>();
+        // Not so pretty code ... but very pretty json
+        ArrayList<String> keyStrings = new ArrayList<String>();
         for (EntityKey key: keys) {
-            keyInts.add(""+key.keyValue);
+            keyStrings.add(
+                "\t\t" +
+                key
+                    .toString()
+                    .replace(
+                "\t",
+                "\t\t\t"
+                    )
+                    .replace(
+                "}",
+                "\t\t}"
+                    )
+            );
         }
         String state = "{\n" +
-        "  \"level\": " + level + ",\n" +
-        "  \"position\": {\n" +
-        "    \"x\": " + x + " ,\n" +
-        "    \"y\": " + y + "\n" +
-        "  },\n" +
-        "  \"keys\": [" + String.join(",", keyInts) + "]\n" +
-        "}";
+            "\t\"level\": " + level + ",\n" +
+            "\t\"position\": {\n" +
+            " \t\t\"x\": " + x + " ,\n" +
+            "\t\t\"y\": " + y + "\n" +
+            "\t},\n" +
+            "\t\"keys\": [\n" +
+                    String.join(
+                        ",\n",
+                        keyStrings
+                    ) + "\n\t]\n" +
+            "}";
 
         return state;
     }

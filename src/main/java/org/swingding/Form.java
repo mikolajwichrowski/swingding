@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.EventListener;
 
 /**
  * Form class die wordt aangeroepen in de Program Class.
@@ -30,41 +31,9 @@ public class Form extends JFrame {
 
         // Buttons
         saveButton = new JButton("SAVE");
-        restartButton = new JButton("RESTART");
-        replayButton = new JButton("REPLAY");
+        restartButton = new JButton("RESTART GAME");
+        replayButton = new JButton("REPLAY LEVEL");
         quitButton = new JButton("QUIT");
-        
-        // Key listener
-        KeyListener myKeyListener = new KeyListener() {
-            public void keyPressed(KeyEvent e) { 
-                if (e.getKeyCode() == 37) {
-                    panel.player.left();
-                    panel.repaint();
-                }
-
-                if (e.getKeyCode() == 38) {
-                    panel.player.up();
-                    panel.repaint();
-                }
-
-                if (e.getKeyCode() == 39) {
-                    panel.player.right();
-                    panel.repaint();
-                }
-
-                if (e.getKeyCode() == 40) {
-                    panel.player.down();
-                    panel.repaint();
-                }
-            }
-        
-            public void keyTyped(KeyEvent e) {
-                return; // uninplemented
-            }
-            public void keyReleased(KeyEvent e) {
-                return; // uninplemented
-            }
-        };
 
         // X and Y pointers for painting.
         int offsetX = 30;
@@ -86,7 +55,10 @@ public class Form extends JFrame {
         quitButton.setBounds((buttonX*4)+(buttonWidth*3), buttonY, buttonWidth, buttonHeight);
 
         // Add KeyListener for panel
-        panel.addKeyListener(myKeyListener);
+        panel.addKeyListener(new MyKeyListener() {
+            @Override
+            public void keyPressed(KeyEvent e) { movementDetection(e); }
+        });
         panel.setFocusable(true);
         panel.setFocusTraversalKeysEnabled(false);
 
@@ -108,6 +80,29 @@ public class Form extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+    }
+
+    public void movementDetection(KeyEvent e)
+    {
+        if (e.getKeyCode() == 37) {
+            panel.player.left();
+            panel.repaint();
+        }
+
+        if (e.getKeyCode() == 38) {
+            panel.player.up();
+            panel.repaint();
+        }
+
+        if (e.getKeyCode() == 39) {
+            panel.player.right();
+            panel.repaint();
+        }
+
+        if (e.getKeyCode() == 40) {
+            panel.player.down();
+            panel.repaint();
+        }
     }
 
     public void reloadEvent()

@@ -1,8 +1,10 @@
 {
-  "level": 1,
-  "position": {
-    "x": 0 ,
-    "y": 0
-  },
-  "keys": []
+	"level": 1,
+	"position": {
+ 		"x": 1 ,
+		"y": 4
+	},
+	"keys": [
+
+	]
 }
