@@ -19,27 +19,54 @@ import javax.swing.*;
 public class Player implements Image {
     public int x, y, level, direction = 0;
     public ArrayList<EntityKey> keys = new ArrayList<EntityKey>();
+    public ArrayList<EntityDoor> doorsDone = new ArrayList<EntityDoor>();
 
     public Player()
     {
         JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
-        x = jobj.getJSONObject("position").getInt("x");
-        y = jobj.getJSONObject("position").getInt("y");
-        level = jobj.getInt("level");
+        try {
+            x = jobj.getJSONObject("position").getInt("x");
+            y = jobj.getJSONObject("position").getInt("y");
+            level = jobj.getInt("level");
+        }
+        catch (Exception e)
+        {
 
-        JSONArray keyInts = jobj.getJSONArray("keys");
-        for (int i = 0; i < keyInts.length(); i++) {
+        }
+
+
+        JSONArray keysJson = jobj.getJSONArray("keys");
+        for (int i = 0; i < keysJson.length(); i++) {
             try {
                 addKey(new EntityKey(
-                        keyInts.getJSONObject(i).getInt("x"),
-                        keyInts.getJSONObject(i).getInt("y"),
+                        keysJson.getJSONObject(i).getInt("x"),
+                        keysJson.getJSONObject(i).getInt("y"),
                             new int[] {
-                                    keyInts.getJSONObject(i).getInt("r"),
-                                    keyInts.getJSONObject(i).getInt("g"),
-                                    keyInts.getJSONObject(i).getInt("b")
+                                    keysJson.getJSONObject(i).getInt("r"),
+                                    keysJson.getJSONObject(i).getInt("g"),
+                                    keysJson.getJSONObject(i).getInt("b")
                             },
                             new ShapeSquare(),
-                            keyInts.getJSONObject(i).getInt("value")
+                        keysJson.getJSONObject(i).getInt("value")
+                ));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        JSONArray doorsDoneJson = jobj.getJSONArray("doors");
+        for (int i = 0; i < doorsDoneJson.length(); i++) {
+            try {
+                addDoor(new EntityDoor(
+                        doorsDoneJson.getJSONObject(i).getInt("x"),
+                        doorsDoneJson.getJSONObject(i).getInt("y"),
+                        new int[] {
+                                doorsDoneJson.getJSONObject(i).getInt("r"),
+                                doorsDoneJson.getJSONObject(i).getInt("g"),
+                                doorsDoneJson.getJSONObject(i).getInt("b")
+                        },
+                        new ShapeSquare(),
+                        doorsDoneJson.getJSONObject(i).getInt("value")
                 ));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -147,18 +174,26 @@ public class Player implements Image {
     }
 
     /**
+     *
+     * @param entity
+     */
+    private void addDoor(EntityDoor entity) {
+        doorsDone.add(entity);
+    }
+
+    /**
      * 
      * @param entity
      * @return
      */
     private boolean unlock(EntityDoor entity) {
         boolean keyFound = false;
-        EntityKey keyRemove = null;
-        if(keys.size()-1 >= 0 && keys.get(keys.size()-1).keyValue == entity.unlockValue) {
+
+        if(keys.size()-1 >= 0 && keys.get(keys.size()-1).keyValue == entity.unlockValue)
+        {
             keyFound = true;
-            keyRemove = keys.get(keys.size()-1);
         }
-        keys.remove(keyRemove);
+
         return keyFound;
     }
 
@@ -169,6 +204,7 @@ public class Player implements Image {
     private void doCollision(Entity collisionEntity) {
         if (collisionEntity instanceof EntityDoor) {
             if(unlock((EntityDoor)collisionEntity)) {
+                doorsDone.add((EntityDoor)collisionEntity);
                 Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
             }
             else {
@@ -178,8 +214,8 @@ public class Player implements Image {
             addKey((EntityKey)collisionEntity);
             Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
         } else if(collisionEntity instanceof EntityPortal) {
-            JOptionPane.showMessageDialog(null, "Level up blyat!");
-            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+            JOptionPane.showMessageDialog(null, "Level up my frend!");
+            doorsDone = new ArrayList<EntityDoor>();
             level++;
         }
     }
@@ -207,6 +243,22 @@ public class Player implements Image {
                     )
             );
         }
+        ArrayList<String> doorStrings = new ArrayList<String>();
+        for (EntityDoor door: doorsDone) {
+            doorStrings.add(
+                "\t\t" +
+                    door
+                        .toString()
+                        .replace(
+                                "\t",
+                                "\t\t\t"
+                        )
+                        .replace(
+                                "}",
+                                "\t\t}"
+                        )
+            );
+        }
         String state = "{\n" +
             "\t\"level\": " + level + ",\n" +
             "\t\"position\": {\n" +
@@ -217,6 +269,11 @@ public class Player implements Image {
                     String.join(
                         ",\n",
                         keyStrings
+                    ) + "\n\t],\n" +
+            "\t\"doors\": [\n" +
+                    String.join(
+                        ",\n",
+                        doorStrings
                     ) + "\n\t]\n" +
             "}";
 

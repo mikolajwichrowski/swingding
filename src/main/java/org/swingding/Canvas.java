@@ -80,13 +80,23 @@ public class Canvas extends JPanel {
             int calculatedY = 15+(50*entity.x);
 
             Graphics2D body = (Graphics2D)g;
-            // Color from the entity sounds good but the path is something every entity has to have different.. direction is just optional
+
             if(entity instanceof EntityDoor){
-                try {
-                    body.drawImage(((EntityDoor)entity).getImage(0), calculatedX, calculatedY, 50, 50, null);
-                } catch (Exception e) {
-                    body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
-                    body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, entity.direction));
+                boolean doorDone = false;
+                for (EntityDoor playerDoneDoor : player.doorsDone) {
+                    if(((EntityDoor)entity).unlockValue == playerDoneDoor.unlockValue && ((EntityDoor)entity).x == playerDoneDoor.x && ((EntityDoor)entity).y == playerDoneDoor.y)
+                    {
+                        doorDone = true;
+                    }
+                }
+
+                if(!doorDone) {
+                    try {
+                        body.drawImage(((EntityDoor) entity).getImage(0), calculatedX, calculatedY, 50, 50, null);
+                    } catch (Exception e) {
+                        body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
+                        body.fill(new ShapeSquare().getPath(calculatedX, calculatedY, entity.direction));
+                    }
                 }
             } else if(entity instanceof EntityKey) {
                 boolean keyExists = false;
