@@ -9,26 +9,48 @@ import javax.imageio.ImageIO;
  * EntityKey
  */
 public class EntityKey extends Entity implements Image {
-    public int keyValue;
-
     /**
      * 
      * @param x
      * @param y
      * @param rgb
      * @param shape
-     * @param keyValue
+     * @param value
      */
-    public EntityKey(int x, int y, int[] rgb, Shape shape, int keyValue) {
-        super(x, y, rgb, shape, 0);
-        this.keyValue = keyValue;
+    public EntityKey(int x, int y, int[] rgb, Shape shape, int value) {
+        super(x, y, rgb, shape, 0, value);
     }
 
     /**
-     * 
+     *
+     * @param playerX
+     * @param playerY
+     * @param playerInput
+     * @param newPlayerLocationX
+     * @param newPlayerLocationY
      */
+    @Override
+    public String doCollision(int playerX, int playerY, int newPlayerLocationX, int newPlayerLocationY, Entity playerInput) {
+        if(x == newPlayerLocationX && y == newPlayerLocationY) {
+            if(Canvas.player.keys.size() > Canvas.player.doorsDone.size()) {
+                return "You are already carrying a key";
+            }
+            else {
+                Canvas.player.addKey(this);
+                Canvas.removeEntity(newPlayerLocationX, newPlayerLocationY);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     *
+     * @param direction
+     */
+    @Override
     public BufferedImage getImage(int direction) throws Exception {
-        return ImageIO.read(FileUtil.resourceReader("key_" + keyValue + ".png"));
+        return ImageIO.read(FileUtil.resourceReader("key_" + value + ".png"));
     }
 
     public String toString() {
@@ -39,7 +61,7 @@ public class EntityKey extends Entity implements Image {
                 "\t\"r\": " + rgb[0] + ",\n" +
                 "\t\"g\": " + rgb[1] + ",\n" +
                 "\t\"b\": " + rgb[2] + ",\n" +
-                "\t\"value\": " + keyValue +
+                "\t\"value\": " + value +
                 "\n}";
     }
 }

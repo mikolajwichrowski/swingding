@@ -16,7 +16,7 @@ public class Map {
             JSONArray wallEntities = jobj.getJSONArray("walls");
             for (int i = 0; i < wallEntities.length(); i++) {
                 layout.add(
-                        new Entity(
+                        new EntityWall(
                                 wallEntities.getJSONObject(i).getJSONObject("position").getInt("x"),
                                 wallEntities.getJSONObject(i).getJSONObject("position").getInt("y"),
                                 new int[]{
@@ -24,7 +24,8 @@ public class Map {
                                         wallEntities.getJSONObject(i).getJSONObject("color").getInt("g"),
                                         wallEntities.getJSONObject(i).getJSONObject("color").getInt("b")},
                                 getShape(wallEntities.getJSONObject(i).getString("shape")),
-                                wallEntities.getJSONObject(i).getInt("direction")
+                                wallEntities.getJSONObject(i).getInt("direction"),
+                                0
                         )
                 );
             }

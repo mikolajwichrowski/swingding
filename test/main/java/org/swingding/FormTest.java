@@ -35,7 +35,7 @@ public class FormTest {
         //      0####0
         //      00||00
 
-        // Wait for form to show
+        // Wait for form to show. The timeouts are not necessary but it's nice to show what this tests does
         Thread.sleep(1000);
 
         for(int s = 1; s <= 4; s++) {                           // For every side

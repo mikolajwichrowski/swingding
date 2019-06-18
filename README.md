@@ -8,6 +8,12 @@ See this beauty -> [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5
 This is our school project. We have made a cool game in approx. 5 hours and decided to make this into a A+ or grade 10 project. (Lets hope we get a good grade)
 See the code and be amazed :D
 
+### How to run
+TODO: add steps to run this on any machine
+
+### How to play
+TODO: add steps to play this
+
 ### Should have but had no time..(ve)
 - FileUtil handle all the file traffic
 - Image class instead of interface

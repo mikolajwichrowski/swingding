@@ -97,7 +97,7 @@ public class PlayerTest {
     public void tryToWalkIntoWallTest() {
         Form form = new Form();
         Player player = new Player();
-        EntityWall wall = new EntityWall(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0);
+        EntityWall wall = new EntityWall(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0, 0);
 
         // Add map with one wall
         form.panel.map = new ArrayList<Entity>();
@@ -115,6 +115,10 @@ public class PlayerTest {
         // Check player location
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(4, form.panel.player.y);
+
+        // If u use this assert, you will see what will happen if the wall has no collision
+        // Change the doCollision method in entity wall as instructed
+        // Assert.assertEquals(3, form.panel.player.y);
 
         // Made by Mikolaj
     }
