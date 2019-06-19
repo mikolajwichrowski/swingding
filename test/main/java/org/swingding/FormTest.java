@@ -93,6 +93,28 @@ public class FormTest {
         Assert.assertEquals(form.panel.player.x, 0);
         Assert.assertEquals(form.panel.player.y, 0);
 
-        // Made by Pawel
+        // Made by Mikolaj
+    }
+
+    @Test
+    public void replayTest()
+    {
+        Form form = new Form();
+
+        // Add empty canvas with one panel
+        form.panel.map = new ArrayList<Entity>();
+        form.panel.player.right();
+
+        int previousLevel = form.panel.player.level;
+
+        // Reload panel
+        form.replayEvent();
+
+        // Test if player is back to starting position
+        Assert.assertEquals(form.panel.player.x, 0);
+        Assert.assertEquals(form.panel.player.y, 0);
+        Assert.assertEquals(form.panel.player.level, previousLevel);
+
+        // Made by Mikolaj
     }
 }

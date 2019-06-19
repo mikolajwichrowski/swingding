@@ -20,43 +20,45 @@ public class Program {
 	 */
 	public static void main(String[] args) {
 		
-		// TODO: move this shit to appropiate locations
-		JFrame loadingScreen = new JFrame();
-		loadingScreen.setUndecorated(true);
-		loadingScreen.setSize(new Dimension(500,500));
-		loadingScreen.setLocationRelativeTo(null);
-		try{
-			class LoadingPanel extends JPanel {
-				private static final long serialVersionUID = 1L;
-				LoadingPanel() {
-					setPreferredSize(new Dimension(500,500));
-				}
-		
-				@Override
-				public void paintComponent(Graphics g) {
-					try {
-						BufferedImage img = ImageIO.read(new File(getClass().getClassLoader().getResource("loading.png").getFile()));
-						g.drawImage(img, 0, 0, 500, 500, null);
-					} catch (Exception e) {
-					}
-					
-				}
-			}
-			LoadingPanel panel = new LoadingPanel();
-
-			loadingScreen.add(panel);
-			loadingScreen.setVisible(true);
-			Thread.sleep(6000);
-			loadingScreen.dispose();
-
-			new Form();
-		}
-		catch(Exception ie)
+		// We wanted to move this to a separate class but this is already out of scope
 		{
-			System.out.println(ie.getMessage());
-			loadingScreen.dispose();
+			JFrame loadingScreen = new JFrame();
+			loadingScreen.setUndecorated(true);
+			loadingScreen.setSize(new Dimension(500, 500));
+			loadingScreen.setLocationRelativeTo(null);
+			try {
+				class LoadingPanel extends JPanel {
+					private static final long serialVersionUID = 1L;
+
+					LoadingPanel() {
+						setPreferredSize(new Dimension(500, 500));
+					}
+
+					@Override
+					public void paintComponent(Graphics g) {
+						try {
+							BufferedImage img = ImageIO.read(new File(getClass().getClassLoader().getResource("loading.png").getFile()));
+							g.drawImage(img, 0, 0, 500, 500, null);
+						} catch (Exception e) {
+							System.out.println(e.getMessage());
+						}
+					}
+				}
+				LoadingPanel panel = new LoadingPanel();
+
+				loadingScreen.add(panel);
+				loadingScreen.setVisible(true);
+				Thread.sleep(6000);
+				loadingScreen.dispose();
+				start();
+			} catch (Exception ie) {
+				System.out.println(ie.getMessage());
+				loadingScreen.dispose();
+			}
 		}
-			
-		// JOptionPane.showMessageDialog(null, "To draw press 'Space'\nTo change shape press 'S'\nTo rotate the shape press 'R'\n To change color press 'C'" );
+	}
+
+	private static void start() {
+		new Form();
 	}
 }

@@ -27,7 +27,19 @@ public class EntityDoor extends Entity implements Image {
     /**
      * 
      */
-    public BufferedImage getImage() throws Exception {
-        return ImageIO.read(new File(getClass().getClassLoader().getResource("door_" + unlockValue + ".png").getFile()));
+    public BufferedImage getImage(int direction) throws Exception {
+        return ImageIO.read(FileUtil.resourceReader("door_" + unlockValue + ".png"));
+    }
+
+    public String toString() {
+        // Not so pretty code ... but very pretty json
+        return "{\n" +
+                "\t\"x\": " + x + ",\n" +
+                "\t\"y\": " + y + ",\n" +
+                "\t\"r\": " + rgb[0] + ",\n" +
+                "\t\"g\": " + rgb[1] + ",\n" +
+                "\t\"b\": " + rgb[2] + ",\n" +
+                "\t\"value\": " + unlockValue +
+                "\n}";
     }
 }

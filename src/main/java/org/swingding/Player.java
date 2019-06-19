@@ -11,33 +11,65 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * Player
  */
-public class Player {
+public class Player implements Image {
     public int x, y, level, direction = 0;
     public ArrayList<EntityKey> keys = new ArrayList<EntityKey>();
+    public ArrayList<EntityDoor> doorsDone = new ArrayList<EntityDoor>();
 
     public Player()
     {
         JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
-        x = jobj.getJSONObject("position").getInt("x");
-        y = jobj.getJSONObject("position").getInt("y");
-        level = jobj.getInt("level");
+        try {
+            x = jobj.getJSONObject("position").getInt("x");
+            y = jobj.getJSONObject("position").getInt("y");
+            level = jobj.getInt("level");
+        }
+        catch (Exception e)
+        {
 
-        JSONArray keyInts = jobj.getJSONArray("keys");
-        for (Object key: keyInts) {
+        }
+
+
+        JSONArray keysJson = jobj.getJSONArray("keys");
+        for (int i = 0; i < keysJson.length(); i++) {
             try {
                 addKey(new EntityKey(
-                        0,
-                        0,
-                        new int[] {0, 0, 0},
-                        new ShapeSquare(),
-                        Integer.parseInt(key.toString())
+                        keysJson.getJSONObject(i).getInt("x"),
+                        keysJson.getJSONObject(i).getInt("y"),
+                            new int[] {
+                                    keysJson.getJSONObject(i).getInt("r"),
+                                    keysJson.getJSONObject(i).getInt("g"),
+                                    keysJson.getJSONObject(i).getInt("b")
+                            },
+                            new ShapeSquare(),
+                        keysJson.getJSONObject(i).getInt("value")
                 ));
             } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
+        JSONArray doorsDoneJson = jobj.getJSONArray("doors");
+        for (int i = 0; i < doorsDoneJson.length(); i++) {
+            try {
+                addDoor(new EntityDoor(
+                        doorsDoneJson.getJSONObject(i).getInt("x"),
+                        doorsDoneJson.getJSONObject(i).getInt("y"),
+                        new int[] {
+                                doorsDoneJson.getJSONObject(i).getInt("r"),
+                                doorsDoneJson.getJSONObject(i).getInt("g"),
+                                doorsDoneJson.getJSONObject(i).getInt("b")
+                        },
+                        new ShapeSquare(),
+                        doorsDoneJson.getJSONObject(i).getInt("value")
+                ));
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -49,18 +81,24 @@ public class Player {
      * @throws Exception
      */
     public BufferedImage getImage(int direction) throws Exception {
+        String name = "zygmund";
         switch(direction) {
             case 1:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_left.png").getFile()));
+                name += "_left.png";
+                break;
             case 2:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_up.png").getFile()));
-            case 3:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_down.png").getFile()));
-            case 4:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund_right.png").getFile()));
+                name += "_up.png";
+                break;
             default:
-                return ImageIO.read(new File(getClass().getClassLoader().getResource("zygmund.png").getFile()));
+            case 3:
+                name += "_down.png";
+                break;
+            case 4:
+                name += "_right.png";
+                break;
         }
+
+        return ImageIO.read(FileUtil.resourceReader(name));
     }
 
     /**
@@ -77,7 +115,6 @@ public class Player {
         } else {
             doCollision(collisionEntity);
         }
-        
     }
 
     /**
@@ -94,7 +131,6 @@ public class Player {
         } else {
             doCollision(collisionEntity);
         }
-        
     }
 
     /**
@@ -111,7 +147,6 @@ public class Player {
         } else {
             doCollision(collisionEntity);
         }
-        
     }
 
     /**
@@ -139,20 +174,26 @@ public class Player {
     }
 
     /**
+     *
+     * @param entity
+     */
+    private void addDoor(EntityDoor entity) {
+        doorsDone.add(entity);
+    }
+
+    /**
      * 
      * @param entity
      * @return
      */
     private boolean unlock(EntityDoor entity) {
         boolean keyFound = false;
-        EntityKey keyRemove = null;
-        for (EntityKey key : keys) {
-            if(key.keyValue == entity.unlockValue) {
-                keyFound = true;
-                keyRemove = key;
-            }
+
+        if(keys.size()-1 >= 0 && keys.get(keys.size()-1).keyValue == entity.unlockValue)
+        {
+            keyFound = true;
         }
-        keys.remove(keyRemove);
+
         return keyFound;
     }
 
@@ -161,13 +202,20 @@ public class Player {
      * @param collisionEntity
      */
     private void doCollision(Entity collisionEntity) {
-        if (collisionEntity instanceof EntityDoor && unlock((EntityDoor)collisionEntity)) {
-            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+        if (collisionEntity instanceof EntityDoor) {
+            if(unlock((EntityDoor)collisionEntity)) {
+                doorsDone.add((EntityDoor)collisionEntity);
+                Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Je hebt niet het juiste vodka merk bij je...\nGa weg pleb!\n.....\n...");
+            }
         } else if (collisionEntity instanceof EntityKey) {
             addKey((EntityKey)collisionEntity);
             Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
         } else if(collisionEntity instanceof EntityPortal) {
-            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
+            JOptionPane.showMessageDialog(null, "Level up my frend!");
+            doorsDone = new ArrayList<EntityDoor>();
             level++;
         }
     }
@@ -176,30 +224,60 @@ public class Player {
      *
      *
      */
-    public void saveState()
+    public String toString()
     {
-        ArrayList<String> keyInts = new ArrayList<String>();
+        // Not so pretty code ... but very pretty json
+        ArrayList<String> keyStrings = new ArrayList<String>();
         for (EntityKey key: keys) {
-            keyInts.add(""+key.keyValue);
+            keyStrings.add(
+                "\t\t" +
+                key
+                    .toString()
+                    .replace(
+                "\t",
+                "\t\t\t"
+                    )
+                    .replace(
+                "}",
+                "\t\t}"
+                    )
+            );
+        }
+        ArrayList<String> doorStrings = new ArrayList<String>();
+        for (EntityDoor door: doorsDone) {
+            doorStrings.add(
+                "\t\t" +
+                    door
+                        .toString()
+                        .replace(
+                                "\t",
+                                "\t\t\t"
+                        )
+                        .replace(
+                                "}",
+                                "\t\t}"
+                        )
+            );
         }
         String state = "{\n" +
-        "  \"level\": " + level + ",\n" +
-        "  \"position\": {\n" +
-        "    \"x\": " + x + " ,\n" +
-        "    \"y\": " + y + "\n" +
-        "  },\n" +
-        "  \"keys\": [" + String.join(",", keyInts) + "]\n" +
-        "}";
+            "\t\"level\": " + level + ",\n" +
+            "\t\"position\": {\n" +
+            " \t\t\"x\": " + x + " ,\n" +
+            "\t\t\"y\": " + y + "\n" +
+            "\t},\n" +
+            "\t\"keys\": [\n" +
+                    String.join(
+                        ",\n",
+                        keyStrings
+                    ) + "\n\t],\n" +
+            "\t\"doors\": [\n" +
+                    String.join(
+                        ",\n",
+                        doorStrings
+                    ) + "\n\t]\n" +
+            "}";
 
-        try
-        {
-            FileWriter fileWriter = new FileWriter("./state.json",false);
-            fileWriter.write(state);
-            fileWriter.close();
-        } catch (Exception e)
-        {
-            System.out.println(e);
-        }
+        return state;
     }
 
 }

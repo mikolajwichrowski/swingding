@@ -5,6 +5,6 @@ import java.awt.image.BufferedImage;
 /**
  * Image
  */
-public interface Image {
-    public BufferedImage getImage() throws Exception;
+interface Image {
+    BufferedImage getImage(int direction) throws Exception;
 }

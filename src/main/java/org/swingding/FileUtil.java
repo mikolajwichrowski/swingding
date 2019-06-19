@@ -1,7 +1,9 @@
 package main.java.org.swingding;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 public class FileUtil {
     public static String fileReader(String fileName)
@@ -22,6 +24,24 @@ public class FileUtil {
         } catch (Exception e) {
             System.out.println(e);
             return "";
+        }
+    }
+
+    public static File resourceReader(String resourceName)
+    {
+        return new File(Thread.currentThread().getContextClassLoader().getResource(resourceName).getFile());
+    }
+
+    public static void fileWriter(String filename, String content)
+    {
+        try
+        {
+            FileWriter fileWriter = new FileWriter("./" + filename,false);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (Exception e)
+        {
+            System.out.println(e);
         }
     }
 }
