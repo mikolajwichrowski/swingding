@@ -145,6 +145,9 @@ public class PlayerTest {
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(4, form.panel.player.y);
 
+        // Check that player is not on the new position
+        Assert.assertNotEquals(3, form.panel.player.y);
+
         // Made by Mikolaj
     }
 
@@ -171,6 +174,9 @@ public class PlayerTest {
         // Check player position
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(3, form.panel.player.y);
+
+        // Check that player is not on the old position
+        Assert.assertNotEquals(4, form.panel.player.y);
 
         // Made by Mikolaj
     }
