@@ -141,10 +141,10 @@ public class FormTest {
         Assert.assertEquals(6, form.panel.map.size());
 
         // Test for requirement: There can be more than one key on the field at a time.
-        // g
+        // This test makes a new empty map, adds keys onto them for different types and then counts them up to see if there can be more than one key on the field at a time.
         // Made by Tiko.
 
-        /**int type1, type2, type3 = 0;
+        /**int type1, type2, type3 = 0; 
 
         for (int i = 0; i < form.panel.map.size(); i++) {
             if
