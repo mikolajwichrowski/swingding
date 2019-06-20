@@ -2,6 +2,8 @@ package main.java.org.swingding;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 
@@ -116,5 +118,37 @@ public class FormTest {
         Assert.assertEquals(previousLevel, form.panel.player.level);
 
         // Made by Mikolaj
+    }
+
+    @Test
+    public void MoreKeysTest() {
+        Form form = new Form();
+
+        // Add an empty canvas and multiple keys to it.
+        form.panel.map = new ArrayList<Entity>();
+        form.panel.map.add(new EntityKey(2, 4, new int[] {0, 0, 0}, new ShapeSquare(), 3));
+        form.panel.map.add(new EntityKey(2, 1, new int[] {0, 0, 0}, new ShapeSquare(), 3));
+        form.panel.map.add(new EntityKey(1,1, new int[] {255, 255, 255}, new ShapeSquare(), 2));
+        form.panel.map.add(new EntityKey(9,9, new int[] {66, 66, 66}, new ShapeSquare(), 1));
+        form.panel.map.add(new EntityKey(8,8, new int[] {66, 66, 66}, new ShapeSquare(), 1));
+        form.panel.map.add(new EntityKey(7,7, new int[] {66, 66, 66}, new ShapeSquare(), 1));
+
+        // Count the total number of kays on the map and each type of keys.
+        int total = form.panel.map.size();
+
+        // Test to see if there really are six keys on the map, using the total variable, and another test using the size variable directly.
+        Assert.assertEquals(6, total);
+        Assert.assertEquals(6, form.panel.map.size());
+
+        // Test for requirement: There can be more than one key on the field at a time.
+        // g
+        // Made by Tiko.
+
+        /**int type1, type2, type3 = 0;
+
+        for (int i = 0; i < form.panel.map.size(); i++) {
+            if
+        }*/
+
     }
 }
