@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.EventListener;
 
 /**
- * Form class die wordt aangeroepen in de Program Class.
- * Program(Start)
- * --Form(You are here)
  *
- * Op deze Class komt het Canvas en de Button interface te staan.
+ * Form
  */
 public class Form extends JFrame {
     private static final long serialVersionUID = 8557974571427438540L; // Auto generated serial
@@ -59,6 +56,7 @@ public class Form extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) { movementDetection(e); }
         });
+
         panel.setFocusable(true);
         panel.setFocusTraversalKeysEnabled(false);
 

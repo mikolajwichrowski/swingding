@@ -198,7 +198,7 @@ public class PlayerTest {
         // Test player position and amount of keys
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(3, form.panel.player.y);
-        Assert.assertEquals(form.panel.player.keys.size(), 1);
+        Assert.assertEquals(1, form.panel.player.keys.size());
 
         // Made by Mikolaj
     }
@@ -214,9 +214,9 @@ public class PlayerTest {
 
         // Check save state
         JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
-        Assert.assertEquals(jobj.getJSONObject("position").getInt("x"), 5);
-        Assert.assertEquals(jobj.getJSONObject("position").getInt("y"), 5);
-        Assert.assertEquals(jobj.getInt("level"), 5);
+        Assert.assertEquals(5, jobj.getJSONObject("position").getInt("x"));
+        Assert.assertEquals(5, jobj.getJSONObject("position").getInt("y"));
+        Assert.assertEquals(5, jobj.getInt("level"));
 
         // Clear save after test
         player.x = 0;
@@ -241,9 +241,9 @@ public class PlayerTest {
         player = new Player();
 
         // Test to see if save state is loaded
-        Assert.assertEquals(player.x, 5);
-        Assert.assertEquals(player.y, 5);
-        Assert.assertEquals(player.level, 5);
+        Assert.assertEquals(5, player.x);
+        Assert.assertEquals(5, player.y);
+        Assert.assertEquals(5, player.level);
 
         // Clear save after test
         player.x = 0;

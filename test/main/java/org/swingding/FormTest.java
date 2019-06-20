@@ -90,8 +90,8 @@ public class FormTest {
         form.reloadEvent();
 
         // Test if player is back to starting position
-        Assert.assertEquals(form.panel.player.x, 0);
-        Assert.assertEquals(form.panel.player.y, 0);
+        Assert.assertEquals(0, form.panel.player.x);
+        Assert.assertEquals(0, form.panel.player.y);
 
         // Made by Mikolaj
     }
@@ -111,9 +111,9 @@ public class FormTest {
         form.replayEvent();
 
         // Test if player is back to starting position
-        Assert.assertEquals(form.panel.player.x, 0);
-        Assert.assertEquals(form.panel.player.y, 0);
-        Assert.assertEquals(form.panel.player.level, previousLevel);
+        Assert.assertEquals(0, form.panel.player.x);
+        Assert.assertEquals(0, form.panel.player.y);
+        Assert.assertEquals(previousLevel, form.panel.player.level);
 
         // Made by Mikolaj
     }

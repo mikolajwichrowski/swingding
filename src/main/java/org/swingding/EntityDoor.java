@@ -52,16 +52,4 @@ public class EntityDoor extends Entity implements Image {
             return null;
         }
     }
-
-    public String toString() {
-        // Not so pretty code ... but very pretty json
-        return "{\n" +
-                "\t\"x\": " + x + ",\n" +
-                "\t\"y\": " + y + ",\n" +
-                "\t\"r\": " + rgb[0] + ",\n" +
-                "\t\"g\": " + rgb[1] + ",\n" +
-                "\t\"b\": " + rgb[2] + ",\n" +
-                "\t\"value\": " + value +
-                "\n}";
-    }
 }
