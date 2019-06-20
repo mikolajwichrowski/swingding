@@ -110,7 +110,6 @@ public class Form extends JFrame {
         panel.player.level = 1;
         panel.player.keys = new ArrayList<EntityKey>();
         panel.player.doorsDone = new ArrayList<EntityDoor>();
-
         saveEvent();
 
         new Form();
@@ -123,7 +122,6 @@ public class Form extends JFrame {
         panel.player.y = 0;
         panel.player.keys = new ArrayList<EntityKey>();
         panel.player.doorsDone = new ArrayList<EntityDoor>();
-
         saveEvent();
 
         new Form();
