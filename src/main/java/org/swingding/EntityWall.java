@@ -32,8 +32,6 @@ public class EntityWall extends Entity implements Image {
     public String doCollision(int playerX, int playerY, int newPlayerLocationX, int newPlayerLocationY, Entity playerInput) {
         if(x == newPlayerLocationX && y == newPlayerLocationY) {
             // Does nothing. It's just a collision
-            // Uncomment this to see that the test works. Change asserted y value
-            // Canvas.removeEntity(newPlayerLocationX, newPlayerLocationY);
             return null;
         }
 

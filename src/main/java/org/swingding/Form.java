@@ -52,11 +52,7 @@ public class Form extends JFrame {
         quitButton.setBounds((buttonX*4)+(buttonWidth*3), buttonY, buttonWidth, buttonHeight);
 
         // Add KeyListener for panel
-        panel.addKeyListener(new MyKeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) { movementDetection(e); }
-        });
-
+        panel.addKeyListener(new MyKeyListener((e) -> movementDetection(e)));
         panel.setFocusable(true);
         panel.setFocusTraversalKeysEnabled(false);
 
@@ -70,10 +66,13 @@ public class Form extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         getContentPane().add(panel);
+
+        // Add buttons
         add(saveButton);
         add(restartButton);
         add(replayButton);
         add(quitButton);
+
         setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
         setLocationRelativeTo(null);
         setResizable(false);

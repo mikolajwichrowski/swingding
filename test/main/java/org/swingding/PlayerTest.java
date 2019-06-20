@@ -116,9 +116,8 @@ public class PlayerTest {
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(4, form.panel.player.y);
 
-        // If u use this assert, you will see what will happen if the wall has no collision
-        // Change the doCollision method in entity wall as instructed
-        // Assert.assertEquals(3, form.panel.player.y);
+        // Check that player is not on the new position
+        Assert.assertNotEquals(3, form.panel.player.y);
 
         // Made by Mikolaj
     }
