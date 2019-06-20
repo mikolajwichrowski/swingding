@@ -123,6 +123,7 @@ public class FormTest {
     @Test
     public void MoreKeysTest() {
         Form form = new Form();
+        form.panel.player.level = 1;
 
         // Add an empty canvas and multiple keys to it.
         form.panel.map = new ArrayList<Entity>();
@@ -144,7 +145,7 @@ public class FormTest {
         // This test makes a new empty map, adds keys onto them for different types and then counts them up to see if there can be more than one key on the field at a time.
         // Made by Tiko.
 
-        /**int type1, type2, type3 = 0; 
+        /**int type1, type2, type3 = 0;
 
         for (int i = 0; i < form.panel.map.size(); i++) {
             if
