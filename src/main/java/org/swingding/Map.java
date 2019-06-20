@@ -24,8 +24,7 @@ public class Map {
                                         wallEntities.getJSONObject(i).getJSONObject("color").getInt("g"),
                                         wallEntities.getJSONObject(i).getJSONObject("color").getInt("b")},
                                 getShape(wallEntities.getJSONObject(i).getString("shape")),
-                                wallEntities.getJSONObject(i).getInt("direction"),
-                                0
+                                wallEntities.getJSONObject(i).getInt("direction")
                         )
                 );
             }

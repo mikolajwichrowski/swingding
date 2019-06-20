@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * Position
  */
 public abstract class Entity {
-    public int x, y, direction, value;
+    public int x, y, value;
     public int[] rgb;
     public Shape shape;
 
@@ -18,14 +18,13 @@ public abstract class Entity {
      * @param y
      * @param rgb
      * @param shape
-     * @param direction
+     * @param value
      */
-    public Entity(int x, int y, int[] rgb, Shape shape, int direction, int value) {
+    public Entity(int x, int y, int[] rgb, Shape shape, int value) {
         this.x = x;
         this.y = y;
         this.rgb = new int[] { rgb[0], rgb[1], rgb[2] };
         this.shape = shape;
-        this.direction = direction;
         this.value = value;
     }
 

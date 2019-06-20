@@ -9,10 +9,22 @@ This is our school project. We have made a cool game in approx. 5 hours and deci
 See the code and be amazed :D
 
 ### How to run
-TODO: add steps to run this on any machine
+- Open the project in intellij
+- Set java version to JDK12
+- Select the option File > Project structure
+- Under project settings select libraries
+- Click the + icon and choose the option "Java"
+- Navigate to the resource folder and add the json-20180813.jar file
+
 
 ### How to play
-TODO: add steps to play this
+- Use arrow keys to move
+- Walk into bottles of vodka to pick them up
+- Walk into hookers to make them go away
+- Walk into the portal/star to go to the next level
+- Press save to save the game (It will load on the next start)
+- Press replay level to only replay the current level
+- Press restart game to clear save and start from the beginning
 
 ### Should have but had no time..(ve)
 - FileUtil handle all the file traffic
@@ -36,5 +48,3 @@ TODO: add steps to play this
 - Don't drunk code (unless you are eastern european)
 - Don't overdo and be on time with what you have to do
 - Be satisfied with what you made. If it works, it works
-
-#### The rest (if they feel the need to?)

@@ -17,7 +17,7 @@ public class EntityPortal extends Entity implements Image {
      * @param shape
      */
     public EntityPortal(int x, int y, int[] rgb, Shape shape) {
-        super(x, y, rgb, shape, 0, 0);
+        super(x, y, rgb, shape, 0);
     }
 
     /**

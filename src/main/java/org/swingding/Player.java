@@ -173,7 +173,7 @@ public class Player implements Image {
      */
     private void doCollision(Entity collisionEntity, int nextX, int nextY) {
         String message = collisionEntity.doCollision(x, y, nextX, nextY, (
-                keys.size()-1 >= 0 && doorsDone.size()-1 < keys.size()-1 ?
+                keys.size()-1 >= 0 ?
                         keys.get(keys.size()-1) : null
                 )
         );

@@ -18,7 +18,7 @@ public class EntityDoor extends Entity implements Image {
      * @param value
      */
     public EntityDoor(int x, int y, int[] rgb, Shape shape, int value) {
-        super(x, y, rgb, shape, 0, value);
+        super(x, y, rgb, shape, value);
     }
 
     /**

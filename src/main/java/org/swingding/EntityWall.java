@@ -14,10 +14,10 @@ public class EntityWall extends Entity implements Image {
      * @param y
      * @param rgb
      * @param shape
-     * @param direction
+     * @param value
      */
-    public EntityWall(int x, int y, int[] rgb, Shape shape, int direction, int value) {
-        super(x, y, rgb, shape, direction, 0);
+    public EntityWall(int x, int y, int[] rgb, Shape shape, int value) {
+        super(x, y, rgb, shape, value);
     }
 
     /**
@@ -31,7 +31,7 @@ public class EntityWall extends Entity implements Image {
     @Override
     public String doCollision(int playerX, int playerY, int newPlayerLocationX, int newPlayerLocationY, Entity playerInput) {
         if(x == newPlayerLocationX && y == newPlayerLocationY) {
-            // Does nothing
+            // Does nothing. It's just a collision
             // Uncomment this to see that the test works. Change asserted y value
             // Canvas.removeEntity(newPlayerLocationX, newPlayerLocationY);
             return null;

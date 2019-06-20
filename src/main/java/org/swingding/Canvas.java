@@ -86,10 +86,10 @@ public class Canvas extends JPanel {
             Graphics2D body = (Graphics2D)g;
 
             try {
-                body.drawImage(entity.getImage(entity.direction), calculatedX, calculatedY, 50, 50, null);
+                body.drawImage(entity.getImage(entity.value), calculatedX, calculatedY, 50, 50, null);
             } catch (Exception e) {
                 body.setColor(new Color(entity.rgb[0], entity.rgb[1], entity.rgb[2]));
-                body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.direction));
+                body.fill(entity.shape.getPath(calculatedX, calculatedY, entity.value));
             }
         }
     }
