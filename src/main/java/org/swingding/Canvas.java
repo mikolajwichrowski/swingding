@@ -57,11 +57,11 @@ public class Canvas extends JPanel {
      * @param g
      * @param p
      */
-    private void drawPlayer(Graphics g, Player p) { 
-        int calculatedX = 15+(50*p.y);
-        int calculatedY = 15+(50*p.x);
+    private void drawPlayer(Graphics g, Player p) {
+        int calculatedX = 15 + (50 * p.y);
+        int calculatedY = 15 + (50 * p.x);
 
-        Graphics2D body = (Graphics2D)g;
+        Graphics2D body = (Graphics2D) g;
         try {
             body.drawImage(p.getImage(p.direction), calculatedX, calculatedY, 50, 50, null);
         } catch (Exception e) {
@@ -70,6 +70,19 @@ public class Canvas extends JPanel {
             body.setColor(new Color(0, 0, 0));
             body.drawRect(calculatedX, calculatedY, 50, 50);
         }
+
+        if (player.keys.size() != 0) {
+            body.setColor(Color.black);
+            body.drawString("current: ", 5, 15);
+            Entity currentKey = player.keys.get(player.keys.size() - 1);
+            try {
+                body.drawImage(currentKey.getImage(currentKey.value), 50, 0, 20, 20, null);
+            } catch(Exception e){
+                body.setColor(new Color(currentKey.rgb[0], currentKey.rgb[1], currentKey.rgb[2]));
+                body.fill(currentKey.shape.getPath(calculatedX, calculatedY, currentKey.value));
+            }
+        }
+
         drawEntities(g, map);
     }
 

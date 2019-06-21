@@ -32,14 +32,9 @@ public class EntityKey extends Entity implements Image {
     @Override
     public String doCollision(int playerX, int playerY, int newPlayerLocationX, int newPlayerLocationY, Entity playerInput) {
         if(x == newPlayerLocationX && y == newPlayerLocationY) {
-            if(Canvas.player.keys.size() > Canvas.player.doorsDone.size()) {
-                return "You are already carrying a key";
-            }
-            else {
-                Canvas.player.addKey(this);
-                Canvas.removeEntity(newPlayerLocationX, newPlayerLocationY);
-                return null;
-            }
+            Canvas.player.addKey(this);
+            Canvas.removeEntity(newPlayerLocationX, newPlayerLocationY);
+            return null;
         }
         return null;
     }

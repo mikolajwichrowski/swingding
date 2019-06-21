@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 class MyKeyListener implements KeyListener {
     private Consumer<KeyEvent> eventConsumer;
 
-    public MyKeyListener(Consumer<KeyEvent> eventConsumer){
+    public MyKeyListener(Consumer<KeyEvent> eventConsumer) {
         this.eventConsumer = eventConsumer;
     }
 

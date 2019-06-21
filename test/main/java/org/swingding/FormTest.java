@@ -88,12 +88,22 @@ public class FormTest {
         form.panel.map = new ArrayList<Entity>();
         form.panel.player.right();
 
+        // Set player to level 2
+        form.panel.player.level = 2;
+
         // Reload panel
         form.reloadEvent();
 
         // Test if player is back to starting position
         Assert.assertEquals(0, form.panel.player.x);
         Assert.assertEquals(0, form.panel.player.y);
+
+        // Test if player is back to level 1
+        Assert.assertEquals(1, form.panel.player.level);
+
+        // Test if player lost all keys and doors
+        Assert.assertEquals(0, form.panel.player.keys.size());
+        Assert.assertEquals(0, form.panel.player.doorsDone.size());
 
         // Made by Mikolaj
     }
@@ -107,6 +117,10 @@ public class FormTest {
         form.panel.map = new ArrayList<Entity>();
         form.panel.player.right();
 
+        // Set player to level 2
+        form.panel.player.level = 2;
+
+        // Register previous level
         int previousLevel = form.panel.player.level;
 
         // Reload panel
@@ -115,7 +129,13 @@ public class FormTest {
         // Test if player is back to starting position
         Assert.assertEquals(0, form.panel.player.x);
         Assert.assertEquals(0, form.panel.player.y);
+
+        // Test if player is still on the same level
         Assert.assertEquals(previousLevel, form.panel.player.level);
+
+        // Test if player lost all keys and opened doors
+        Assert.assertEquals(0, form.panel.player.keys.size());
+        Assert.assertEquals(0, form.panel.player.doorsDone.size());
 
         // Made by Mikolaj
     }
