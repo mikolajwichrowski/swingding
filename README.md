@@ -16,7 +16,6 @@ See the code and be amazed :D
 - Click the + icon and choose the option "Java"
 - Navigate to the resource folder and add the json-20180813.jar file
 
-
 ### How to play
 - Use arrow keys to move
 - Walk into bottles of vodka to pick them up
@@ -25,15 +24,9 @@ See the code and be amazed :D
 - Press save to save the game (It will load on the next start)
 - Press replay level to only replay the current level
 - Press restart game to clear save and start from the beginning
+- The game will tell you which key you have
 
-### Should have but had no time..(ve)
-- FileUtil handle all the file traffic
-- Image class instead of interface
-   - We wanted to implement
-   - getImage() and getImage(int direction)
-   - but ended up doing
-   - getImage(int direction)
-   - And just using it with getImage(0) if there was no direction in the specific implementation
+### Could have but had no time..(ve)
 - Sounds and stuff :(
 - Cleaner code on some parts of the application
 
