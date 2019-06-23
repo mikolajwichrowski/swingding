@@ -11,7 +11,7 @@
         "b": 62
       },
       "shape": "triangle",
-      "direction": 3
+      "direction": 2
     },
     {
       "position": {
@@ -24,7 +24,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -37,7 +37,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -50,7 +50,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -63,7 +63,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -76,7 +76,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -89,7 +89,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -102,7 +102,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -115,7 +115,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -128,7 +128,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -141,7 +141,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -154,7 +154,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -167,7 +167,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -180,7 +180,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -193,7 +193,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -206,7 +206,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -219,7 +219,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -232,7 +232,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -245,7 +245,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -258,7 +258,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -271,7 +271,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -284,7 +284,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -297,7 +297,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -310,7 +310,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -323,7 +323,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -336,7 +336,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -349,7 +349,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -362,7 +362,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -375,7 +375,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -388,7 +388,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -414,7 +414,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -427,7 +427,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -440,7 +440,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -453,7 +453,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -466,7 +466,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -479,7 +479,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -492,7 +492,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -505,7 +505,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -518,7 +518,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -531,7 +531,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -544,7 +544,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -557,7 +557,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -570,7 +570,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -583,7 +583,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     },
     {
       "position": {
@@ -596,7 +596,7 @@
         "b": 62
       },
       "shape": "square",
-      "direction": 0
+      "direction": 1
     }
   ],
   "doors": [

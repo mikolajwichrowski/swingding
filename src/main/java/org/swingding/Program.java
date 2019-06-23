@@ -48,7 +48,7 @@ public class Program {
 
 				loadingScreen.add(panel);
 				loadingScreen.setVisible(true);
-				Thread.sleep(6000);
+				Thread.sleep(3000);
 				loadingScreen.dispose();
 				start();
 			} catch (Exception ie) {

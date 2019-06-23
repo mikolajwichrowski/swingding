@@ -16,7 +16,7 @@ public class Map {
             JSONArray wallEntities = jobj.getJSONArray("walls");
             for (int i = 0; i < wallEntities.length(); i++) {
                 layout.add(
-                        new Entity(
+                        new EntityWall(
                                 wallEntities.getJSONObject(i).getJSONObject("position").getInt("x"),
                                 wallEntities.getJSONObject(i).getJSONObject("position").getInt("y"),
                                 new int[]{
@@ -75,7 +75,8 @@ public class Map {
                             getShape(portal.getString("shape"))
                     )
             );
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             System.out.println(e);
         }
@@ -87,6 +88,7 @@ public class Map {
     }
 
     private Shape getShape(String shapeString) {
+        // Should do something about this..
         switch (shapeString) {
             case "triangle":
                 return new ShapeTriangle();

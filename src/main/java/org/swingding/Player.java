@@ -33,22 +33,17 @@ public class Player implements Image {
         {
 
         }
+    }
 
-
+    public void loadEntities()
+    {
+        JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
         JSONArray keysJson = jobj.getJSONArray("keys");
+
         for (int i = 0; i < keysJson.length(); i++) {
             try {
-                addKey(new EntityKey(
-                        keysJson.getJSONObject(i).getInt("x"),
-                        keysJson.getJSONObject(i).getInt("y"),
-                            new int[] {
-                                    keysJson.getJSONObject(i).getInt("r"),
-                                    keysJson.getJSONObject(i).getInt("g"),
-                                    keysJson.getJSONObject(i).getInt("b")
-                            },
-                            new ShapeSquare(),
-                        keysJson.getJSONObject(i).getInt("value")
-                ));
+                addKey((EntityKey)Canvas.getEntity(keysJson.getJSONObject(i).getInt("x"), keysJson.getJSONObject(i).getInt("y")));
+                Canvas.removeEntity(keysJson.getJSONObject(i).getInt("x"), keysJson.getJSONObject(i).getInt("y"));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -57,17 +52,8 @@ public class Player implements Image {
         JSONArray doorsDoneJson = jobj.getJSONArray("doors");
         for (int i = 0; i < doorsDoneJson.length(); i++) {
             try {
-                addDoor(new EntityDoor(
-                        doorsDoneJson.getJSONObject(i).getInt("x"),
-                        doorsDoneJson.getJSONObject(i).getInt("y"),
-                        new int[] {
-                                doorsDoneJson.getJSONObject(i).getInt("r"),
-                                doorsDoneJson.getJSONObject(i).getInt("g"),
-                                doorsDoneJson.getJSONObject(i).getInt("b")
-                        },
-                        new ShapeSquare(),
-                        doorsDoneJson.getJSONObject(i).getInt("value")
-                ));
+                addDoor((EntityDoor)Canvas.getEntity(doorsDoneJson.getJSONObject(i).getInt("x"), doorsDoneJson.getJSONObject(i).getInt("y")));
+                Canvas.removeEntity(doorsDoneJson.getJSONObject(i).getInt("x"), doorsDoneJson.getJSONObject(i).getInt("y"));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -112,8 +98,8 @@ public class Player implements Image {
         direction = 1;
         if (y > 0 && collisionEntity == null) {
             y = nextY;
-        } else {
-            doCollision(collisionEntity);
+        } else if (y > 0) {
+            doCollision(collisionEntity, nextX, nextY);
         }
     }
 
@@ -128,8 +114,8 @@ public class Player implements Image {
         direction = 2;
         if(x > 0 && collisionEntity == null) {
             x = nextX;
-        } else {
-            doCollision(collisionEntity);
+        } else if (x > 0) {
+            doCollision(collisionEntity, nextX, nextY);
         }
     }
 
@@ -144,8 +130,8 @@ public class Player implements Image {
         direction = 4;
         if (y < Canvas.WIDTH && collisionEntity == null) {
             y = nextY;
-        } else {
-            doCollision(collisionEntity);
+        } else if (y < Canvas.WIDTH) {
+            doCollision(collisionEntity, nextX, nextY);
         }
     }
 
@@ -160,8 +146,8 @@ public class Player implements Image {
         direction = 3;
         if (x < Canvas.HEIGHT && collisionEntity == null) {
             x = nextX;
-        } else {
-            doCollision(collisionEntity);
+        } else if (x < Canvas.HEIGHT) {
+            doCollision(collisionEntity, nextX, nextY);
         }
     }
 
@@ -169,7 +155,7 @@ public class Player implements Image {
      * 
      * @param entity
      */
-    private void addKey(EntityKey entity) {
+    public void addKey(EntityKey entity) {
         keys.add(entity);
     }
 
@@ -177,46 +163,23 @@ public class Player implements Image {
      *
      * @param entity
      */
-    private void addDoor(EntityDoor entity) {
+    public void addDoor(EntityDoor entity) {
         doorsDone.add(entity);
-    }
-
-    /**
-     * 
-     * @param entity
-     * @return
-     */
-    private boolean unlock(EntityDoor entity) {
-        boolean keyFound = false;
-
-        if(keys.size()-1 >= 0 && keys.get(keys.size()-1).keyValue == entity.unlockValue)
-        {
-            keyFound = true;
-        }
-
-        return keyFound;
     }
 
     /**
      * 
      * @param collisionEntity
      */
-    private void doCollision(Entity collisionEntity) {
-        if (collisionEntity instanceof EntityDoor) {
-            if(unlock((EntityDoor)collisionEntity)) {
-                doorsDone.add((EntityDoor)collisionEntity);
-                Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "Je hebt niet het juiste vodka merk bij je...\nGa weg pleb!\n.....\n...");
-            }
-        } else if (collisionEntity instanceof EntityKey) {
-            addKey((EntityKey)collisionEntity);
-            Canvas.removeEntity(collisionEntity.x, collisionEntity.y);
-        } else if(collisionEntity instanceof EntityPortal) {
-            JOptionPane.showMessageDialog(null, "Level up my frend!");
-            doorsDone = new ArrayList<EntityDoor>();
-            level++;
+    private void doCollision(Entity collisionEntity, int nextX, int nextY) {
+        String message = collisionEntity.doCollision(x, y, nextX, nextY, (
+                keys.size()-1 >= 0 ?
+                        keys.get(keys.size()-1) : null
+                )
+        );
+
+        if(message != null) {
+            JOptionPane.showMessageDialog(null, message);
         }
     }
 

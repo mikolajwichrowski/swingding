@@ -4,6 +4,8 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class PlayerTest {
@@ -22,74 +24,94 @@ public class PlayerTest {
      */
 
     @Test
-    public void leftTest() {
-        Player test = new Player();
+    public void leftTest() throws AWTException {
+        Form form = new Form(); //Instantiate Form (with player on it)
+        Robot robot = new Robot(); //Used for simulating KeyEvents.
 
-        // Place player on location
-        test.x = 3;
-        test.y = 4;
+        // Location of the player on form (X and Y coordinates.
+        form.panel.player.x = 3;
+        form.panel.player.y = 4;
 
-        // Move player
-        test.left();
+        // Simulate KeyPressed event with a slight artificial delay. (Move the player that belongs to form)
+        robot.setAutoDelay(200);
+        robot.keyPress(KeyEvent.VK_LEFT);
 
-        // Check player location
-        Assert.assertEquals(3, test.x);
-        Assert.assertEquals(3, test.y);
+        // Check player location to make sure the player moved.
+        Assert.assertEquals(3, form.panel.player.x);
+        Assert.assertEquals(3, form.panel.player.y);
+        Assert.assertNotEquals(4, form.panel.player.y);
 
+        // Made for requirement: Player can move across the empty spaces of the panel/field/form.
+        // This test tests the actual instance of player belonging to the board by simulating a key event through Robot. This test is to make sure that the player can move left.
         // Made by Tiko
     }
 
     @Test
-    public void rightTest() {
-        Player test = new Player();
+    public void rightTest() throws AWTException {
+        Form form = new Form(); //Instance of form (Form loads the objects that are on it, including the player.
+        Robot robot = new Robot(); //Used for simulating KeyEvents.
 
-        // Place player
-        test.x = 6;
-        test.y = 5;
+        // Location of the player on form (X and Y coordinates.
+        form.panel.player.x = 6;
+        form.panel.player.y = 5;
 
-        // Move player
-        test.right();
+        // Simulate KeyPressed event with a slight artificial delay. (Move the player that belongs to form)
+        robot.setAutoDelay(200);
+        robot.keyPress(KeyEvent.VK_RIGHT);
 
         // Check player location
-        Assert.assertEquals(6, test.x);
-        Assert.assertEquals(6, test.y);
+        Assert.assertEquals(6, form.panel.player.x);
+        Assert.assertEquals(6, form.panel.player.y);
+        Assert.assertNotEquals(5, form.panel.player.y);
 
+        // Second test for requirement: Player can move across the empty spaces of the panel/field/form.
+        // This test tests the actual instance of player belonging to the board by simulating a key event through Robot. This test is to make sure that the player can move right.
         // Made by Tiko
     }
 
     @Test
-    public void upTest() {
-        Player test = new Player();
+    public void upTest() throws AWTException {
+        Form form = new Form();
+        Robot robot = new Robot();
 
-        // Place player
-        test.x = 2;
-        test.y = 4;
+        // Location of the player on form (X and Y coordinates)
+        form.panel.player.x = 2;
+        form.panel.player.y = 4;
 
-        // Move player
-        test.up();
+        // Simulate KeyPressed event with a slight artificial delay. (Move the player that belongs to form)
+        robot.setAutoDelay(200);
+        robot.keyPress(KeyEvent.VK_UP);
 
         // Check player location
-        Assert.assertEquals(1, test.x);
-        Assert.assertEquals(4, test.y);
+        Assert.assertEquals(1, form.panel.player.x);
+        Assert.assertEquals(4, form.panel.player.y);
+        Assert.assertNotEquals(2, form.panel.player.x);
 
+        // Third test for requirement: Player can move across the empty spaces of the panel/field/form.
+        // This test tests the actual instance of player belonging to the board by simulating a key event through Robot. This test is to make sure that the player can move up.
         // Made by Tiko
     }
 
     @Test
-    public void downTest() {
-        Player test = new Player();
+    public void downTest() throws AWTException {
+        Form form = new Form();
+        Robot robot = new Robot();
 
-        // Place player
-        test.x = 9;
-        test.y = 9;
+        // Location of the player on form (X and Y coordinates)
+        form.panel.player.x = 9;
+        form.panel.player.y = 9;
 
-        // Move player
-        test.down();
+        // Simulate KeyPressed event with a slight artificial delay. (Move the player that belongs to form)
+        robot.setAutoDelay(200);
+        robot.keyPress(KeyEvent.VK_DOWN);
 
         // Check player location
-        Assert.assertEquals(10, test.x);
-        Assert.assertEquals(9, test.y);
+        Assert.assertEquals(10, form.panel.player.x);
+        Assert.assertEquals(9, form.panel.player.y);
+        Assert.assertNotEquals(9, form.panel.player.x);
 
+        // Fourth and final test for requirement: Player can move across the empty spaces of the panel/field/form.
+        // This test tests the actual instance of player belonging to the board by simulating a key event through Robot. This test is to make sure that the player can move down.
         // Made by Tiko
     }
 
@@ -116,6 +138,9 @@ public class PlayerTest {
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(4, form.panel.player.y);
 
+        // Check that player is not on the new position
+        Assert.assertNotEquals(3, form.panel.player.y);
+
         // Made by Mikolaj
     }
 
@@ -141,6 +166,9 @@ public class PlayerTest {
         // Test player position
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(4, form.panel.player.y);
+
+        // Check that player is not on the new position
+        Assert.assertNotEquals(3, form.panel.player.y);
 
         // Made by Mikolaj
     }
@@ -169,6 +197,9 @@ public class PlayerTest {
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(3, form.panel.player.y);
 
+        // Check that player is not on the old position
+        Assert.assertNotEquals(4, form.panel.player.y);
+
         // Made by Mikolaj
     }
 
@@ -194,7 +225,7 @@ public class PlayerTest {
         // Test player position and amount of keys
         Assert.assertEquals(4, form.panel.player.x);
         Assert.assertEquals(3, form.panel.player.y);
-        Assert.assertEquals(form.panel.player.keys.size(), 1);
+        Assert.assertEquals(1, form.panel.player.keys.size());
 
         // Made by Mikolaj
     }
@@ -210,9 +241,9 @@ public class PlayerTest {
 
         // Check save state
         JSONObject jobj = new JSONObject(FileUtil.fileReader("./state.json"));
-        Assert.assertEquals(jobj.getJSONObject("position").getInt("x"), 5);
-        Assert.assertEquals(jobj.getJSONObject("position").getInt("y"), 5);
-        Assert.assertEquals(jobj.getInt("level"), 5);
+        Assert.assertEquals(5, jobj.getJSONObject("position").getInt("x"));
+        Assert.assertEquals(5, jobj.getJSONObject("position").getInt("y"));
+        Assert.assertEquals(5, jobj.getInt("level"));
 
         // Clear save after test
         player.x = 0;
@@ -237,9 +268,9 @@ public class PlayerTest {
         player = new Player();
 
         // Test to see if save state is loaded
-        Assert.assertEquals(player.x, 5);
-        Assert.assertEquals(player.y, 5);
-        Assert.assertEquals(player.level, 5);
+        Assert.assertEquals(5, player.x);
+        Assert.assertEquals(5, player.y);
+        Assert.assertEquals(5, player.level);
 
         // Clear save after test
         player.x = 0;

@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.EventListener;
 
 /**
- * Form class die wordt aangeroepen in de Program Class.
- * Program(Start)
- * --Form(You are here)
  *
- * Op deze Class komt het Canvas en de Button interface te staan.
+ * Form
  */
 public class Form extends JFrame {
     private static final long serialVersionUID = 8557974571427438540L; // Auto generated serial
@@ -55,10 +52,7 @@ public class Form extends JFrame {
         quitButton.setBounds((buttonX*4)+(buttonWidth*3), buttonY, buttonWidth, buttonHeight);
 
         // Add KeyListener for panel
-        panel.addKeyListener(new MyKeyListener() {
-            @Override
-            public void keyPressed(KeyEvent e) { movementDetection(e); }
-        });
+        panel.addKeyListener(new MyKeyListener((e) -> movementDetection(e)));
         panel.setFocusable(true);
         panel.setFocusTraversalKeysEnabled(false);
 
@@ -72,10 +66,13 @@ public class Form extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         getContentPane().add(panel);
+
+        // Add buttons
         add(saveButton);
         add(restartButton);
         add(replayButton);
         add(quitButton);
+
         setSize(resolutionX-15, resolutionY-20); // Fix for weird size issue
         setLocationRelativeTo(null);
         setResizable(false);
@@ -112,7 +109,6 @@ public class Form extends JFrame {
         panel.player.level = 1;
         panel.player.keys = new ArrayList<EntityKey>();
         panel.player.doorsDone = new ArrayList<EntityDoor>();
-
         saveEvent();
 
         new Form();
@@ -125,7 +121,6 @@ public class Form extends JFrame {
         panel.player.y = 0;
         panel.player.keys = new ArrayList<EntityKey>();
         panel.player.doorsDone = new ArrayList<EntityDoor>();
-
         saveEvent();
 
         new Form();
