@@ -11,8 +11,8 @@ public class PlayerTest {
     /**
      * Unit Tests for Player class.
      * The four move method tests are for the requirement:
-     *  - "Poppetje kan over de x en y as van het scherm bewegen."
-     *  - "Deze beweging verloopt per vlak net als een pion in een schaakspel."
+     * - "Poppetje kan over de x en y as van het scherm bewegen."
+     * - "Deze beweging verloopt per vlak net als een pion in een schaakspel."
      * The collision method tests are for the requirement:
      * - "Muren weerhouden het poppetje om er tegen aan te lopen."
      * - "Sleutels openen deuren. "
@@ -97,7 +97,7 @@ public class PlayerTest {
     public void tryToWalkIntoWallTest() {
         Form form = new Form();
         Player player = new Player();
-        EntityWall wall = new EntityWall(4, 3, new int[] {0,255,0}, new ShapeSquare(), 0);
+        EntityWall wall = new EntityWall(4, 3, new int[]{0, 255, 0}, new ShapeSquare(), 0);
 
         // Add map with one wall
         form.panel.map = new ArrayList<Entity>();
@@ -123,7 +123,7 @@ public class PlayerTest {
     public void tryToWalkIntoDoorWithoutKeyTest() {
         Form form = new Form();
         Player player = new Player();
-        EntityDoor door = new EntityDoor(4, 3, new int[] {0,255,0}, null, 1);
+        EntityDoor door = new EntityDoor(4, 3, new int[]{0, 255, 0}, null, 1);
 
         // Add map with one door
         form.panel.map = new ArrayList<Entity>();
@@ -149,8 +149,8 @@ public class PlayerTest {
     public void tryToWalkIntoDoorWithKeyTest() {
         Form form = new Form();
         Player player = new Player();
-        player.keys.add(new EntityKey(0,0, new int[] {0,255,0}, null, 1));
-        EntityDoor door = new EntityDoor(4, 3, new int[] {0,255,0}, null, 1);
+        player.keys.add(new EntityKey(0, 0, new int[]{0, 255, 0}, null, 1));
+        EntityDoor door = new EntityDoor(4, 3, new int[]{0, 255, 0}, null, 1);
 
         // Add clear map with one key
         form.panel.map = new ArrayList<Entity>();
@@ -176,7 +176,7 @@ public class PlayerTest {
     public void tryToWalkIntoKeyTest() {
         Form form = new Form();
         Player player = new Player();
-        EntityKey key = new EntityKey(4,3, new int[] {0,255,0}, null, 1);
+        EntityKey key = new EntityKey(4, 3, new int[]{0, 255, 0}, null, 1);
 
         // Add clear map with one key
         form.panel.map = new ArrayList<Entity>();
@@ -249,5 +249,17 @@ public class PlayerTest {
         FileUtil.fileWriter("state.json", player.toString());
 
         // Made by Pawel
+    }
+
+    @Test
+    public void restartTest() {
+        Form form = new Form();
+        form.panel.map = new ArrayList<Entity>();
+
+        int originalPosition = form.panel.player.y;
+        form.panel.player.right();
+        Assert.assertEquals(form.panel.player.y, originalPosition + 1);
+        form.reloadEvent();
+        Assert.assertEquals(form.panel.player.y, originalPosition);
     }
 }
