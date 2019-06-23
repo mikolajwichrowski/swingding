@@ -154,7 +154,7 @@ public class FormTest {
         form.panel.map.add(new EntityKey(8,8, new int[] {66, 66, 66}, new ShapeSquare(), 1));
         form.panel.map.add(new EntityKey(7,7, new int[] {66, 66, 66}, new ShapeSquare(), 1));
 
-        // Count the total number of kays on the map and each type of keys.
+        // Count the total number of keys on the map and each type of keys.
         int total = form.panel.map.size();
 
         // Test to see if there really are six keys on the map, using the total variable, and another test using the size variable directly.

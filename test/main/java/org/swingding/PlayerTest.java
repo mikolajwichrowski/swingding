@@ -292,5 +292,7 @@ public class PlayerTest {
         Assert.assertEquals(form.panel.player.y, originalPosition + 1);
         form.reloadEvent();
         Assert.assertEquals(form.panel.player.y, originalPosition);
+
+        // Made by Pawel
     }
 }
