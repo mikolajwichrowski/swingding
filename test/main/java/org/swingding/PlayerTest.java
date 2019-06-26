@@ -27,6 +27,7 @@ public class PlayerTest {
     public void leftTest() throws AWTException {
         Form form = new Form(); //Instantiate Form (with player on it)
         Robot robot = new Robot(); //Used for simulating KeyEvents.
+        form.panel.map = new ArrayList<Entity>(); //Clear out the map to make sure it's empty.
 
         // Location of the player on form (X and Y coordinates.
         form.panel.player.x = 3;
@@ -50,6 +51,7 @@ public class PlayerTest {
     public void rightTest() throws AWTException {
         Form form = new Form(); //Instance of form (Form loads the objects that are on it, including the player.
         Robot robot = new Robot(); //Used for simulating KeyEvents.
+        form.panel.map = new ArrayList<Entity>(); //Clear out the Map to make sure it's empty.
 
         // Location of the player on form (X and Y coordinates.
         form.panel.player.x = 6;
@@ -73,10 +75,11 @@ public class PlayerTest {
     public void upTest() throws AWTException {
         Form form = new Form();
         Robot robot = new Robot();
+        form.panel.map = new ArrayList<Entity>(); //Clear out the map to make sure it's empty.
 
         // Location of the player on form (X and Y coordinates)
         form.panel.player.x = 2;
-        form.panel.player.y = 4;
+        form.panel.player.y = 1;
 
         // Simulate KeyPressed event with a slight artificial delay. (Move the player that belongs to form)
         robot.setAutoDelay(200);
@@ -84,7 +87,7 @@ public class PlayerTest {
 
         // Check player location
         Assert.assertEquals(1, form.panel.player.x);
-        Assert.assertEquals(4, form.panel.player.y);
+        Assert.assertEquals(1, form.panel.player.y);
         Assert.assertNotEquals(2, form.panel.player.x);
 
         // Third test for requirement: Player can move across the empty spaces of the panel/field/form.
@@ -93,22 +96,24 @@ public class PlayerTest {
     }
 
     @Test
-    public void downTest() throws AWTException {
+    public void downTest() throws AWTException, InterruptedException {
         Form form = new Form();
         Robot robot = new Robot();
+        form.panel.map = new ArrayList<Entity>();
 
         // Location of the player on form (X and Y coordinates)
-        form.panel.player.x = 9;
+        form.panel.player.x = 8;
         form.panel.player.y = 9;
 
         // Simulate KeyPressed event with a slight artificial delay. (Move the player that belongs to form)
         robot.setAutoDelay(200);
         robot.keyPress(KeyEvent.VK_DOWN);
 
+
         // Check player location
-        Assert.assertEquals(10, form.panel.player.x);
+        Assert.assertEquals(9, form.panel.player.x);
         Assert.assertEquals(9, form.panel.player.y);
-        Assert.assertNotEquals(9, form.panel.player.x);
+        Assert.assertNotEquals(8, form.panel.player.x);
 
         // Fourth and final test for requirement: Player can move across the empty spaces of the panel/field/form.
         // This test tests the actual instance of player belonging to the board by simulating a key event through Robot. This test is to make sure that the player can move down.
